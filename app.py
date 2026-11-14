@@ -67,8 +67,8 @@ st.markdown('<div class="pl-banner"><b>Demo on synthetic data.</b> A fictional d
             'compliance determination.</div>', unsafe_allow_html=True)
 st.write("")
 
-tabs = st.tabs(["Overview", "True cost", "Review queue", "Savings simulator", "Savings ledger",
-                "Negotiation brief", "Match quality"])
+tabs = st.tabs(["Overview", "Cost per unit (est.)", "Review queue", "Savings simulator", "Savings ledger",
+                "Negotiation brief", "Match quality", "Pilot & limits"])
 
 # ------------------------------------------------------------------------ overview
 with tabs[0]:
@@ -89,7 +89,7 @@ with tabs[0]:
 - **A naive "buy everything from the cheapest supplier" view promises {usd(naive)}. Respecting sourcing limits cuts it to {usd(net)}.**
   The {usd(naive - net)} gap is the cost of keeping restricted parts with compliant suppliers. Largest single opportunity: **{top.part_id}** ({usd(top.scenario_savings)} net).
 - **Spares are bought at a premium.** Fleet spares cost {usd(sp.premium_usd.sum())} more than the same parts at production prices; batteries and thermal cameras lead.
-  Spares add **{tc.spares_pct_of_cost.min():.0%}–{tc.spares_pct_of_cost.max():.0%}** to each product's true cost, a cost the production BOM never shows.
+  Spares add **{tc.spares_pct_of_cost.min():.0%}–{tc.spares_pct_of_cost.max():.0%}** to each product's estimated cost per unit, a cost the production BOM never shows (allocated by part usage, an assumption).
 - **Near-duplicate parts are flagged, not assumed swappable.** {len(nd)} pair(s) found (e.g. {nd.part_a.iloc[0]} vs {nd.part_b.iloc[0]}, differing only on {nd.differs_on.iloc[0]}). Standardizing is worth {usd(nd.potential_if_standardized.sum())} only if engineering approves.
 """ if len(nd) else f"- Naive view: {usd(naive)}; net of sourcing limits: {usd(net)}.")
     st.markdown('<div class="pl-warn"><b>How to read these numbers.</b> They are computed from average paid prices in this '
@@ -98,7 +98,7 @@ with tabs[0]:
 
 # ------------------------------------------------------------------------ true cost
 with tabs[1]:
-    st.subheader("True cost per product")
+    st.subheader("Procurement-attributable cost per unit (estimate)")
     st.caption("Material cost = BOM quantity × average price actually paid. Spares = spares spend allocated by part usage, per unit sold.")
     fam = A.family_cost(m, d).drop_duplicates("family")
     fam["Product"] = fam.product_name
@@ -111,10 +111,10 @@ with tabs[1]:
         tooltip=["Product", "part", alt.Tooltip("usd:Q", format="$,.0f")]).properties(height=320)
     st.altair_chart(chart, width='stretch')
     show = fam[["Product", "material_cost", "spares_per_unit", "true_cost_per_unit", "spares_pct_of_cost"]].rename(columns={
-        "material_cost": "Material $/unit", "spares_per_unit": "Spares $/unit", "true_cost_per_unit": "True cost $/unit",
+        "material_cost": "Material $/unit", "spares_per_unit": "Spares $/unit", "true_cost_per_unit": "Est. cost $/unit",
         "spares_pct_of_cost": "Spares share"})
     st.dataframe(show.style.format({"Material $/unit": "${:,.0f}", "Spares $/unit": "${:,.0f}",
-                                    "True cost $/unit": "${:,.0f}", "Spares share": "{:.0%}"}), hide_index=True, width='stretch')
+                                    "Est. cost $/unit": "${:,.0f}", "Spares share": "{:.0%}"}), hide_index=True, width='stretch')
     st.markdown("##### Drill into one product's BOM")
     pid = st.selectbox("Product variant", d["products"].product_id.tolist(),
                        format_func=lambda p: f"{p}  ·  " + d["products"].set_index("product_id").loc[p, "product_name"] +
@@ -129,7 +129,7 @@ with tabs[1]:
 # ------------------------------------------------------------------------ review queue
 with tabs[2]:
     st.subheader("Review queue")
-    st.caption("PartLink never auto-accepts a doubtful match. These lines need a human decision. Decisions update every number in the app.")
+    st.caption("PartLink never auto-accepts a doubtful match, and the best guess is often wrong (cartons look like propellers). A human decides: pick a part, or 'NONE' if it is not a tracked part. Decisions update every number in the app. The demo button simulates an expert reviewer using the hidden answer key.")
     rq = raw[raw.status == "review"].sort_values("extended_spend", ascending=False).copy()
     options = ["Pending"] + sorted(d["parts_master"].part_id.tolist()) + ["NONE (not a tracked part)"]
     rq["Decision"] = rq.spend_id.map(lambda s: st.session_state.approvals.get(s, "Pending"))
@@ -138,9 +138,10 @@ with tabs[2]:
         columns={"spend_id": "Line", "line_description": "Description", "supplier_name": "Supplier", "extended_spend": "Spend $",
                  "pred_part": "Best guess", "confidence": "Confidence", "reason": "Why it needs review"})
     c1, c2, c3 = st.columns([1, 1, 3])
-    if c1.button("Accept all best guesses"):
+    if c1.button("Demo: simulate expert reviewer") and os.path.exists(KEY_PATH):
+        _k = pd.read_csv(KEY_PATH).set_index("spend_id").true_part_id
         for r in rq.itertuples():
-            st.session_state.approvals[r.spend_id] = r.pred_part
+            st.session_state.approvals[r.spend_id] = _k[r.spend_id]
         st.rerun()
     if c2.button("Clear decisions"):
         st.session_state.approvals = {}
@@ -156,6 +157,30 @@ with tabs[2]:
         st.rerun()
     st.info(f"{len(st.session_state.approvals)} of {len(rq)} decided · mapped spend now {cov['mapped_pct']:.1%}")
 
+    st.markdown("---")
+    st.markdown("##### Lineage: trace any purchase line back to its part, BOM and sourcing evidence")
+    _eff = m.set_index("spend_id")
+    _opts = raw.sort_values("extended_spend", ascending=False).spend_id.head(300).tolist()
+    sid_pick = st.selectbox("Purchase line (largest 300 by spend)", _opts, format_func=lambda s_: f"{s_}  ·  " + raw.set_index("spend_id").loc[s_, "line_description"] + "  ·  " + usd(raw.set_index("spend_id").loc[s_, "extended_spend"]))
+    ln = raw.set_index("spend_id").loc[sid_pick]
+    eff_part = _eff.loc[sid_pick, "effective_part"]
+    c1_, c2_, c3_ = st.columns(3)
+    c1_.markdown(f"**1. What was bought**  \n{ln.line_description}  \nSupplier: {ln.supplier_name} ({ln.supplier_id})  \nSKU: {ln.supplier_sku}  \nPO {ln.po_number} on {ln.date}  \nPlant: {ln.plant} ({ln.channel_guess})")
+    c2_.markdown(f"**2. Normalized**  \nQty {ln.qty:g} {ln.uom} to {ln.qty_each:g} each (x{ln.uom_factor:g})  \nPrice {ln.unit_price:,.2f} per {ln.uom} to {ln.price_each:,.2f} each  \nvs part median price: {ln.price_vs_median:.2f}x")
+    c3_.markdown(f"**3. Matched to**  \nBest guess: {ln.pred_part} (confidence {ln.confidence:.2f}, {ln.method})  \nStatus: {ln.status}  \nReason: {ln.reason}  \nEffective part now: **{eff_part}**")
+    if eff_part not in ("NONE", "UNRESOLVED"):
+        bl = d["bom_lines"][d["bom_lines"].part_id == eff_part].merge(d["products"][["product_id", "product_name", "variant"]], on="product_id")
+        st.markdown(f"**4. Where {eff_part} is used in the approved BOM**")
+        st.dataframe(bl[["product_id", "product_name", "variant", "assembly", "qty_per_unit", "requirement_basis"]].rename(columns={"requirement_basis": "sourcing basis"}), hide_index=True, width='stretch')
+        sr = d["sourcing_rules"][d["sourcing_rules"].part_id == eff_part]
+        sup = d["suppliers"].set_index("supplier_id").loc[ln.supplier_id]
+        if len(sr):
+            st.markdown(f"**5. Sourcing evidence:** {sr.iloc[0].requirement_basis}. {sr.iloc[0].basis_note} (checked {sr.iloc[0].checked_on}). This supplier: {sup.supplier_name}, {sup.country}, compliant-for-gov flag {sup.compliant_for_gov}, evidence: {sup.evidence}.")
+        else:
+            st.markdown(f"**5. Sourcing evidence:** no government sourcing requirement recorded for {eff_part}. Supplier: {sup.supplier_name}, {sup.country}.")
+    else:
+        st.info("This line is not currently linked to a tracked part, so it adds nothing to any product cost.")
+
 # ------------------------------------------------------------------------ simulator
 with tabs[3]:
     st.subheader("What-if savings simulator")
@@ -165,8 +190,8 @@ with tabs[3]:
         enforce = st.multiselect("Requirements treated as binding for government-variant volume", A.BASES,
                                  default=A.BASES, format_func=lambda b: A.BASIS_LABEL[b])
         share = st.slider("Share of volume you can move", 0, 100, 100, 5, format="%d%%") / 100
-        st.markdown('<div class="pl-sub">Statutory means a named component category in the FY2020 NDAA §848. Blue UAS Framework is a vetting '
-                    'program, not a statute. Buyer-imposed comes from the customer contract. All are screening inputs, '
+        st.markdown('<div class="pl-sub">Statutory means a named component category in the FY2020 NDAA §848. Blue UAS Framework (managed by DCMA) is a vetting '
+                    'program, not a statute; the FCC exemption for Blue UAS items runs to 1 Jan 2027 unless extended. Rules also reach any federally funded buyer (American Security Drone Act), not only DoD. Buyer-imposed comes from the customer contract. All are screening inputs, '
                     'not legal conclusions. Rules last checked 2026-11-01 (demo).</div>', unsafe_allow_html=True)
     sc = A.savings_scenario(m, d, enforce=enforce, share_movable=share)
     with right:
@@ -253,6 +278,12 @@ with tabs[6]:
         kpi(k[2], "Candidate recall (top 3)", f"{res['candidate_recall_top3']:.1%}", "true part appears among top 3 guesses")
         kpi(k[3], "Unit conversion exact", f"{res['uom_qty_each_exact']:.0%}", "pairs and boxes normalized to each")
         st.write("")
+        k2 = st.columns(4)
+        kpi(k2[0], "Part spend auto-accepted", f"{res['auto_accept_share_of_part_spend']:.1%}", "dollar-weighted, not just line count")
+        kpi(k2[1], "Wrong auto-accepted $", usd(res['auto_accepted_wrong_spend']), "dollars at risk from silent errors")
+        kpi(k2[2], "Unresolved exposure $", usd(res['review_spend']), f"{res['review_lines']} lines awaiting a human")
+        kpi(k2[3], "Review share of lines", f"{res['review_share_of_all_lines']:.1%}", "analyst workload")
+        st.write("")
         st.markdown(f"""
 **Reading these honestly**
 - **Text alone** auto-accepts about 77% of part lines with zero wrong; **supplier-SKU history** (a SKU confirmed once vouches for its other lines) lifts that to {res['auto_accept_share_of_part_lines']:.1%}.
@@ -265,3 +296,44 @@ with tabs[6]:
             st.json(res)
     else:
         st.info("Answer key not found. Place it in _answer_key/ to see grading.")
+
+
+# ------------------------------------------------------------------------ pilot & limits
+with tabs[7]:
+    st.subheader("What we claim, what we don't, and how a real pilot would prove it")
+    l, r = st.columns(2)
+    with l:
+        st.markdown("##### What PartLink claims")
+        st.markdown("""
+- An **auditable join** from an approved BOM revision to the prices actually paid, including spares.
+- A **review queue** so a doubtful match never silently changes a cost number.
+- Savings split into **identified, approved, realized**, with realized counted only after later invoices.
+- Sourcing rules kept as **evidence with a source and date**, not a "compliant" badge.
+""")
+        st.markdown("##### What PartLink does not claim")
+        st.markdown("""
+- **Not actual unit cost.** It uses the approved BOM, not as-built records, and allocates spares by part usage (an assumption).
+- **Not a legal compliance determination.** Rules change (e.g. the FCC Blue UAS exemption runs to 1 Jan 2027 unless extended).
+- **Not proven on real data.** The demo data is synthetic and cleaner than real ERP exports.
+- **Not a replacement for engineering approval.** A matched part is not an approved substitute.
+- **Not unique at BOM-to-spend.** Platforms like Sievo, GEP, JAGGAER and Coupa document BOM and spend capabilities; the test is the last, auditable mile, with less buyer effort.
+""")
+    with r:
+        st.markdown("##### Proposed pilot (8 weeks, read-only)")
+        st.markdown("""
+**Scope:** one consenting U.S. drone maker, one product family, 2 to 3 BOM revisions, purchased assemblies and recurring spares. Buyer: procurement or supply-chain lead. Engineering and finance sign off jointly.
+
+**Data (read-only, fields needed only):** effective-dated approved BOMs, supplier and manufacturer part crosswalks, approved alternates, PO and invoice lines with paid prices, units and currency, credits and returns, supplier master, spares identifiers, agreed savings baseline.
+
+**Timeline:** weeks 1 to 2 agree definitions, security boundary and a hand-labeled answer set. Weeks 3 to 5 ingest, reconcile and review exceptions. Weeks 6 to 8 test savings cases against actual transactions and recommend scale, revise or stop.
+
+**Proposed pass/fail gates (agreed before loading data; proposals, not industry benchmarks):**
+1. At least 90% of in-scope purchased dollars linked to an effective BOM or spares record, or explicitly classified as an exception.
+2. At least 95% dollar-weighted precision on auto-accepted links in an independently reviewed sample. Report coverage and precision together.
+3. 100% of ambiguous or non-approved substitutions held for review, never auto-approved.
+4. An evidence trail for 100% of approved savings cases.
+5. Success: finance verifies at least one realized saving from later paid transactions, and reviewer minutes per exception beat the current process.
+
+**Stop condition:** if records cannot establish the approved configuration or the paid price reliably, fix master data before selling any savings claim.
+""")
+        st.markdown('<div class="pl-warn"><b>Pitch line.</b> Not a dashboard. An auditable join from approved BOM revision to actual paid price, including spares.</div>', unsafe_allow_html=True)

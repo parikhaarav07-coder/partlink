@@ -10,7 +10,7 @@ import pandas as pd
 
 BASES = ["statutory", "blue_framework", "buyer_imposed"]
 BASIS_LABEL = {"statutory": "Statutory (named in FY2020 NDAA s848)",
-               "blue_framework": "Blue UAS Framework category",
+               "blue_framework": "Blue UAS Framework category (DCMA)",
                "buyer_imposed": "Buyer / contract imposed"}
 
 

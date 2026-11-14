@@ -6,7 +6,7 @@ BL-0004,S1-G,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,1,EA,Y,buyer_imposed
 BL-0005,S1-G,Power,PDB-1,Power distribution board,1,EA,Y,buyer_imposed
 BL-0006,S1-G,Power,WIR-HARN,Main wiring harness,1,EA,N,
 BL-0007,S1-G,Avionics,FC-7,Flight controller FC-7,1,EA,Y,statutory
-BL-0008,S1-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,blue_framework
+BL-0008,S1-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,buyer_imposed
 BL-0009,S1-G,Avionics,RAD-L1,Radio link module 900MHz SMA,1,EA,Y,statutory
 BL-0010,S1-G,Payload,CAM-EO,4K visible camera module,1,EA,Y,statutory
 BL-0011,S1-G,Airframe,FRM-S1,Carbon frame Scout S1,1,EA,N,
@@ -35,7 +35,7 @@ BL-0033,P2-G,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,2,EA,Y,buyer_imposed
 BL-0034,P2-G,Power,PDB-1,Power distribution board,1,EA,Y,buyer_imposed
 BL-0035,P2-G,Power,WIR-HARN,Main wiring harness,1,EA,N,
 BL-0036,P2-G,Avionics,FC-7,Flight controller FC-7,1,EA,Y,statutory
-BL-0037,P2-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,blue_framework
+BL-0037,P2-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,buyer_imposed
 BL-0038,P2-G,Avionics,RAD-L1,Radio link module 900MHz SMA,1,EA,Y,statutory
 BL-0039,P2-G,Payload,CAM-EO,4K visible camera module,1,EA,Y,statutory
 BL-0040,P2-G,Payload,CAM-THM,Thermal camera module 640,1,EA,Y,statutory
@@ -68,7 +68,7 @@ BL-0066,H3-G,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,4,EA,Y,buyer_imposed
 BL-0067,H3-G,Power,PDB-1,Power distribution board,1,EA,Y,buyer_imposed
 BL-0068,H3-G,Power,WIR-HARN,Main wiring harness,1,EA,N,
 BL-0069,H3-G,Avionics,FC-7,Flight controller FC-7,1,EA,Y,statutory
-BL-0070,H3-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,blue_framework
+BL-0070,H3-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,buyer_imposed
 BL-0071,H3-G,Avionics,RAD-L1B,Radio link module 900MHz U.FL,1,EA,Y,statutory
 BL-0072,H3-G,Payload,CAM-EO,4K visible camera module,1,EA,Y,statutory
 BL-0073,H3-G,Airframe,FRM-H3,Carbon frame Hauler H3,1,EA,N,
@@ -89,7 +89,7 @@ BL-0087,H3-C,Hardware,FAS-M3,Screw M3x8 socket head,90,EA,N,
 BL-0088,H3-C,Hardware,FAS-M4,Screw M4x12 socket head,32,EA,N,
 BL-0089,D1-G,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,2,EA,Y,buyer_imposed
 BL-0090,D1-G,Power,WIR-HARN,Main wiring harness,1,EA,N,
-BL-0091,D1-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,blue_framework
+BL-0091,D1-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,buyer_imposed
 BL-0092,D1-G,Avionics,RAD-L1,Radio link module 900MHz SMA,1,EA,Y,statutory
 BL-0093,D1-G,Dock,ENC-IP65,Dock enclosure IP65,1,EA,N,
 BL-0094,D1-G,Dock,PSU-1200,Power supply 1200W,1,EA,Y,buyer_imposed

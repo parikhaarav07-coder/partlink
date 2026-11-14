@@ -9,8 +9,8 @@
   "spares_premium_vs_production_price": 942951.65,
   "near_duplicate_radio_standardization_saving": 7408.91,
   "compliance_premium_by_requirement_basis": {
-    "buyer_imposed": 308400.0,
-    "blue_framework": 154780.0,
+    "buyer_imposed": 334620.0,
+    "blue_framework": 128560.0,
     "statutory": 419100.0
   },
   "framing": "Compliance premium is a SCENARIO: cost of restricting government-variant volume to compliant suppliers. Only the 'statutory' share reflects a named statutory component category."

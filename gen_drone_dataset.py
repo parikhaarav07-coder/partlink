@@ -64,19 +64,19 @@ GOV_REQ = {
 }
 
 # Why each government-required part is restricted. Statutory = named in FY2020 NDAA s848 (as amended);
-# blue_framework = listed component category in the DIU Blue UAS Framework (a vetting program, not a statute);
+# blue_framework = listed component category in the Blue UAS Framework (managed by DCMA; a vetting program, not a statute);
 # buyer_imposed = customer contract / program requirement (not named in s848).
 REQ_BASIS = {
     "FC-7": "statutory", "RAD-L1": "statutory", "RAD-L1B": "statutory",
     "CAM-EO": "statutory", "CAM-THM": "statutory",
-    "GPS-M9": "blue_framework", "ESC-35A": "blue_framework", "ESC-60A": "blue_framework",
+    "GPS-M9": "buyer_imposed", "ESC-35A": "blue_framework", "ESC-60A": "blue_framework",
     "MOT-2808": "buyer_imposed", "MOT-4012": "buyer_imposed", "BAT-6S-10": "buyer_imposed",
     "PDB-1": "buyer_imposed", "PSU-1200": "buyer_imposed", "DCK-CTL": "buyer_imposed",
 }
 assert set(REQ_BASIS) == GOV_REQ
 BASIS_NOTE = {
-    "statutory": "Named component category in FY2020 NDAA s848 (as amended Dec 2022). Screening input, not a legal determination.",
-    "blue_framework": "Component category in DIU Blue UAS Framework (vetting program, not a statute). Check current listing.",
+    "statutory": "Named component category in FY2020 NDAA s848. Screening input, not a legal determination.",
+    "blue_framework": "Component category in the Blue UAS Framework (DCMA-managed vetting program, not a statute). Check the current listing; FCC exemption for Blue UAS items runs to 1 Jan 2027 unless extended.",
     "buyer_imposed": "Customer contract or program requirement. Not named in s848. Check the governing contract.",
 }
 CHECKED_ON = "2026-11-01"
