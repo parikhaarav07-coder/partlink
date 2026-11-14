@@ -3,7 +3,7 @@
 Setup: `pip install -r requirements.txt && streamlit run app.py`. Open on the Overview tab. Don't click Accept-all before the demo.
 
 1. **Problem (30s).** A company's BOM says what it builds. Its spend data says what it bought. Nothing connects them, and spares and warranty parts never appear in the BOM. So nobody knows what a product really costs.
-2. **Overview.** 98.5% of spend is mapped to an approved part. 26 lines need a human. Naive savings: $1.76M. After sourcing limits: $882K.
+2. **Overview.** 99.1% of spend is mapped to an approved part. 26 lines need a human. Naive savings: $4.09M. After sourcing limits: $1.83M.
 3. **Cost per unit (est.) tab.** Pick a product: production material plus allocated spares (allocated by usage, an assumption; approved BOM, not as-built). Point out the spares share the BOM never shows.
 4. **Review queue.** Show that doubtful lines are never auto-accepted, and that the best guess is often wrong: a shipping carton looks like a propeller. Click "Demo: simulate expert reviewer". All 26 lines clear, 25 are marked "not a part", and the savings number stays right. Then "Clear decisions". Message: the human step protects the number.
 5. **Savings simulator.** Untick the buyer-imposed and Blue UAS rules and watch net savings move. Drag the share-movable slider to 50%. Mention rules are screening inputs, not legal determinations.
