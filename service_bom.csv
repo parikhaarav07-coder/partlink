@@ -1,0 +1,28 @@
+part_id,description,annual_spare_demand_units,driver
+MOT-2808,Brushless motor 2808 1350KV,2940,crash and wear replacement
+MOT-4012,Brushless motor 4012 400KV,2400,crash and wear replacement
+ESC-35A,Electronic speed controller 35A,1600,field repair
+ESC-60A,Electronic speed controller 60A,1600,field repair
+PRP-10,Carbon fiber propeller 10in,24000,crash and wear replacement
+PRP-13,Carbon fiber propeller 13in,19840,crash and wear replacement
+BAT-6S-10,Li-ion battery pack 6S 10Ah,7920,crash and wear replacement
+PDB-1,Power distribution board,218,field repair
+WIR-HARN,Main wiring harness,314,field repair
+FC-7,Flight controller FC-7,290,field repair
+GPS-M9,GNSS GPS module M9,471,field repair
+RAD-L1,Radio link module 900MHz SMA,426,field repair
+RAD-L1B,Radio link module 900MHz U.FL,60,field repair
+CAM-EO,4K visible camera module,580,field repair
+CAM-THM,Thermal camera module 640,150,field repair
+GMB-3,3-axis gimbal frame (no motors),100,field repair
+FRM-S1,Carbon frame Scout S1,240,field repair
+FRM-P2,Carbon frame Patrol P2,150,field repair
+FRM-H3,Carbon frame Hauler H3,60,field repair
+LG-1,Landing gear set,780,crash and wear replacement
+FAS-M3,Screw M3x8 socket head,7910,field repair
+FAS-M4,Screw M4x12 socket head,2528,field repair
+ENC-IP65,Dock enclosure IP65,24,field repair
+PSU-1200,Power supply 1200W,36,field repair
+CHG-CON,Charging contact spring pair,192,field repair
+DCK-CTL,Dock controller board,24,field repair
+WX-SENS,Weather sensor module,36,field repair

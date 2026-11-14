@@ -1,0 +1,9 @@
+product_id,family,product_name,variant,target_segment,annual_units,description
+S1-G,S1,Scout S1,Government,Public Safety & Defense,2800,Small recon quadcopter
+S1-C,S1,Scout S1,Commercial,"Infrastructure, Agriculture & Commercial",5200,Small recon quadcopter
+P2-G,P2,Patrol P2,Government,Public Safety & Defense,2000,Mid-size thermal patrol drone
+P2-C,P2,Patrol P2,Commercial,"Infrastructure, Agriculture & Commercial",3000,Mid-size thermal patrol drone
+H3-G,H3,Hauler H3,Government,Public Safety & Defense,500,Heavy-lift resupply octocopter
+H3-C,H3,Hauler H3,Commercial,"Infrastructure, Agriculture & Commercial",1000,Heavy-lift resupply octocopter
+D1-G,D1,Harbor D1,Government,Public Safety & Defense,400,Drone charging dock
+D1-C,D1,Harbor D1,Commercial,"Infrastructure, Agriculture & Commercial",800,Drone charging dock

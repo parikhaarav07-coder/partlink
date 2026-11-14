@@ -1,0 +1,17 @@
+{
+  "spend_lines": 1492,
+  "production_spend": 13904739.18,
+  "spares_spend": 2428184.3,
+  "naive_savings_move_everything_to_cheapest": 1766507.56,
+  "compliant_aware_savings": 884227.56,
+  "overstatement_of_naive_view": 882280.0,
+  "compliance_premium_gov_volume": 882280.0,
+  "spares_premium_vs_production_price": 942951.65,
+  "near_duplicate_radio_standardization_saving": 7408.91,
+  "compliance_premium_by_requirement_basis": {
+    "buyer_imposed": 308400.0,
+    "blue_framework": 154780.0,
+    "statutory": 419100.0
+  },
+  "framing": "Compliance premium is a SCENARIO: cost of restricting government-variant volume to compliant suppliers. Only the 'statutory' share reflects a named statutory component category."
+}

@@ -1,0 +1,111 @@
+bom_line_id,product_id,assembly,part_id,part_description,qty_per_unit,uom,requires_compliant_supplier,requirement_basis
+BL-0001,S1-G,Propulsion,MOT-2808,Brushless motor 2808 1350KV,4,EA,Y,buyer_imposed
+BL-0002,S1-G,Propulsion,ESC-35A,Electronic speed controller 35A,4,EA,Y,blue_framework
+BL-0003,S1-G,Propulsion,PRP-10,Carbon fiber propeller 10in,4,EA,N,
+BL-0004,S1-G,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,1,EA,Y,buyer_imposed
+BL-0005,S1-G,Power,PDB-1,Power distribution board,1,EA,Y,buyer_imposed
+BL-0006,S1-G,Power,WIR-HARN,Main wiring harness,1,EA,N,
+BL-0007,S1-G,Avionics,FC-7,Flight controller FC-7,1,EA,Y,statutory
+BL-0008,S1-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,blue_framework
+BL-0009,S1-G,Avionics,RAD-L1,Radio link module 900MHz SMA,1,EA,Y,statutory
+BL-0010,S1-G,Payload,CAM-EO,4K visible camera module,1,EA,Y,statutory
+BL-0011,S1-G,Airframe,FRM-S1,Carbon frame Scout S1,1,EA,N,
+BL-0012,S1-G,Airframe,LG-1,Landing gear set,1,EA,N,
+BL-0013,S1-G,Hardware,FAS-M3,Screw M3x8 socket head,40,EA,N,
+BL-0014,S1-G,Hardware,FAS-M4,Screw M4x12 socket head,12,EA,N,
+BL-0015,S1-C,Propulsion,MOT-2808,Brushless motor 2808 1350KV,4,EA,N,
+BL-0016,S1-C,Propulsion,ESC-35A,Electronic speed controller 35A,4,EA,N,
+BL-0017,S1-C,Propulsion,PRP-10,Carbon fiber propeller 10in,4,EA,N,
+BL-0018,S1-C,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,1,EA,N,
+BL-0019,S1-C,Power,PDB-1,Power distribution board,1,EA,N,
+BL-0020,S1-C,Power,WIR-HARN,Main wiring harness,1,EA,N,
+BL-0021,S1-C,Avionics,FC-7,Flight controller FC-7,1,EA,N,
+BL-0022,S1-C,Avionics,GPS-M9,GNSS GPS module M9,1,EA,N,
+BL-0023,S1-C,Avionics,RAD-L1,Radio link module 900MHz SMA,1,EA,N,
+BL-0024,S1-C,Payload,CAM-EO,4K visible camera module,1,EA,N,
+BL-0025,S1-C,Airframe,FRM-S1,Carbon frame Scout S1,1,EA,N,
+BL-0026,S1-C,Airframe,LG-1,Landing gear set,1,EA,N,
+BL-0027,S1-C,Hardware,FAS-M3,Screw M3x8 socket head,40,EA,N,
+BL-0028,S1-C,Hardware,FAS-M4,Screw M4x12 socket head,12,EA,N,
+BL-0029,P2-G,Propulsion,MOT-4012,Brushless motor 4012 400KV,4,EA,Y,buyer_imposed
+BL-0030,P2-G,Propulsion,MOT-2808,Brushless motor 2808 1350KV,2,EA,Y,buyer_imposed
+BL-0031,P2-G,Propulsion,ESC-60A,Electronic speed controller 60A,4,EA,Y,blue_framework
+BL-0032,P2-G,Propulsion,PRP-13,Carbon fiber propeller 13in,4,EA,N,
+BL-0033,P2-G,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,2,EA,Y,buyer_imposed
+BL-0034,P2-G,Power,PDB-1,Power distribution board,1,EA,Y,buyer_imposed
+BL-0035,P2-G,Power,WIR-HARN,Main wiring harness,1,EA,N,
+BL-0036,P2-G,Avionics,FC-7,Flight controller FC-7,1,EA,Y,statutory
+BL-0037,P2-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,blue_framework
+BL-0038,P2-G,Avionics,RAD-L1,Radio link module 900MHz SMA,1,EA,Y,statutory
+BL-0039,P2-G,Payload,CAM-EO,4K visible camera module,1,EA,Y,statutory
+BL-0040,P2-G,Payload,CAM-THM,Thermal camera module 640,1,EA,Y,statutory
+BL-0041,P2-G,Payload,GMB-3,3-axis gimbal frame (no motors),1,EA,N,
+BL-0042,P2-G,Airframe,FRM-P2,Carbon frame Patrol P2,1,EA,N,
+BL-0043,P2-G,Airframe,LG-1,Landing gear set,1,EA,N,
+BL-0044,P2-G,Hardware,FAS-M3,Screw M3x8 socket head,60,EA,N,
+BL-0045,P2-G,Hardware,FAS-M4,Screw M4x12 socket head,16,EA,N,
+BL-0046,P2-C,Propulsion,MOT-4012,Brushless motor 4012 400KV,4,EA,N,
+BL-0047,P2-C,Propulsion,MOT-2808,Brushless motor 2808 1350KV,2,EA,N,
+BL-0048,P2-C,Propulsion,ESC-60A,Electronic speed controller 60A,4,EA,N,
+BL-0049,P2-C,Propulsion,PRP-13,Carbon fiber propeller 13in,4,EA,N,
+BL-0050,P2-C,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,2,EA,N,
+BL-0051,P2-C,Power,PDB-1,Power distribution board,1,EA,N,
+BL-0052,P2-C,Power,WIR-HARN,Main wiring harness,1,EA,N,
+BL-0053,P2-C,Avionics,FC-7,Flight controller FC-7,1,EA,N,
+BL-0054,P2-C,Avionics,GPS-M9,GNSS GPS module M9,1,EA,N,
+BL-0055,P2-C,Avionics,RAD-L1,Radio link module 900MHz SMA,1,EA,N,
+BL-0056,P2-C,Payload,CAM-EO,4K visible camera module,1,EA,N,
+BL-0057,P2-C,Payload,CAM-THM,Thermal camera module 640,1,EA,N,
+BL-0058,P2-C,Payload,GMB-3,3-axis gimbal frame (no motors),1,EA,N,
+BL-0059,P2-C,Airframe,FRM-P2,Carbon frame Patrol P2,1,EA,N,
+BL-0060,P2-C,Airframe,LG-1,Landing gear set,1,EA,N,
+BL-0061,P2-C,Hardware,FAS-M3,Screw M3x8 socket head,60,EA,N,
+BL-0062,P2-C,Hardware,FAS-M4,Screw M4x12 socket head,16,EA,N,
+BL-0063,H3-G,Propulsion,MOT-4012,Brushless motor 4012 400KV,8,EA,Y,buyer_imposed
+BL-0064,H3-G,Propulsion,ESC-60A,Electronic speed controller 60A,8,EA,Y,blue_framework
+BL-0065,H3-G,Propulsion,PRP-13,Carbon fiber propeller 13in,8,EA,N,
+BL-0066,H3-G,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,4,EA,Y,buyer_imposed
+BL-0067,H3-G,Power,PDB-1,Power distribution board,1,EA,Y,buyer_imposed
+BL-0068,H3-G,Power,WIR-HARN,Main wiring harness,1,EA,N,
+BL-0069,H3-G,Avionics,FC-7,Flight controller FC-7,1,EA,Y,statutory
+BL-0070,H3-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,blue_framework
+BL-0071,H3-G,Avionics,RAD-L1B,Radio link module 900MHz U.FL,1,EA,Y,statutory
+BL-0072,H3-G,Payload,CAM-EO,4K visible camera module,1,EA,Y,statutory
+BL-0073,H3-G,Airframe,FRM-H3,Carbon frame Hauler H3,1,EA,N,
+BL-0074,H3-G,Hardware,FAS-M3,Screw M3x8 socket head,90,EA,N,
+BL-0075,H3-G,Hardware,FAS-M4,Screw M4x12 socket head,32,EA,N,
+BL-0076,H3-C,Propulsion,MOT-4012,Brushless motor 4012 400KV,8,EA,N,
+BL-0077,H3-C,Propulsion,ESC-60A,Electronic speed controller 60A,8,EA,N,
+BL-0078,H3-C,Propulsion,PRP-13,Carbon fiber propeller 13in,8,EA,N,
+BL-0079,H3-C,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,4,EA,N,
+BL-0080,H3-C,Power,PDB-1,Power distribution board,1,EA,N,
+BL-0081,H3-C,Power,WIR-HARN,Main wiring harness,1,EA,N,
+BL-0082,H3-C,Avionics,FC-7,Flight controller FC-7,1,EA,N,
+BL-0083,H3-C,Avionics,GPS-M9,GNSS GPS module M9,1,EA,N,
+BL-0084,H3-C,Avionics,RAD-L1B,Radio link module 900MHz U.FL,1,EA,N,
+BL-0085,H3-C,Payload,CAM-EO,4K visible camera module,1,EA,N,
+BL-0086,H3-C,Airframe,FRM-H3,Carbon frame Hauler H3,1,EA,N,
+BL-0087,H3-C,Hardware,FAS-M3,Screw M3x8 socket head,90,EA,N,
+BL-0088,H3-C,Hardware,FAS-M4,Screw M4x12 socket head,32,EA,N,
+BL-0089,D1-G,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,2,EA,Y,buyer_imposed
+BL-0090,D1-G,Power,WIR-HARN,Main wiring harness,1,EA,N,
+BL-0091,D1-G,Avionics,GPS-M9,GNSS GPS module M9,1,EA,Y,blue_framework
+BL-0092,D1-G,Avionics,RAD-L1,Radio link module 900MHz SMA,1,EA,Y,statutory
+BL-0093,D1-G,Dock,ENC-IP65,Dock enclosure IP65,1,EA,N,
+BL-0094,D1-G,Dock,PSU-1200,Power supply 1200W,1,EA,Y,buyer_imposed
+BL-0095,D1-G,Dock,CHG-CON,Charging contact spring pair,2,EA,N,
+BL-0096,D1-G,Dock,DCK-CTL,Dock controller board,1,EA,Y,buyer_imposed
+BL-0097,D1-G,Dock,WX-SENS,Weather sensor module,1,EA,N,
+BL-0098,D1-G,Hardware,FAS-M3,Screw M3x8 socket head,30,EA,N,
+BL-0099,D1-G,Hardware,FAS-M4,Screw M4x12 socket head,24,EA,N,
+BL-0100,D1-C,Power,BAT-6S-10,Li-ion battery pack 6S 10Ah,2,EA,N,
+BL-0101,D1-C,Power,WIR-HARN,Main wiring harness,1,EA,N,
+BL-0102,D1-C,Avionics,GPS-M9,GNSS GPS module M9,1,EA,N,
+BL-0103,D1-C,Avionics,RAD-L1,Radio link module 900MHz SMA,1,EA,N,
+BL-0104,D1-C,Dock,ENC-IP65,Dock enclosure IP65,1,EA,N,
+BL-0105,D1-C,Dock,PSU-1200,Power supply 1200W,1,EA,N,
+BL-0106,D1-C,Dock,CHG-CON,Charging contact spring pair,2,EA,N,
+BL-0107,D1-C,Dock,DCK-CTL,Dock controller board,1,EA,N,
+BL-0108,D1-C,Dock,WX-SENS,Weather sensor module,1,EA,N,
+BL-0109,D1-C,Hardware,FAS-M3,Screw M3x8 socket head,30,EA,N,
+BL-0110,D1-C,Hardware,FAS-M4,Screw M4x12 socket head,24,EA,N,

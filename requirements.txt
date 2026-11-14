@@ -1,0 +1,5 @@
+streamlit>=1.40
+pandas
+rapidfuzz
+altair
+anthropic  # optional: only for the "Polish wording" checkbox
