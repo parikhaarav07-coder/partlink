@@ -61,7 +61,7 @@ cov = A.coverage(m)
 
 # ------------------------------------------------------------------------ header
 st.title("PartLink")
-st.caption("Connect every purchase to the approved part it belongs to, and see what each product really costs, spares included.")
+st.caption("Connect every purchase to the approved part it belongs to, and see what each product costs, spares included (estimate).")
 st.markdown('<div class="pl-banner"><b>Demo on synthetic data.</b> A fictional drone maker (4 products, 27 parts, 16 suppliers, '
             f'{len(raw):,} purchase lines). Savings shown are <b>potential</b>, not realized, and nothing here is a legal '
             'compliance determination.</div>', unsafe_allow_html=True)
