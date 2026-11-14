@@ -1,0 +1,28 @@
+part_id,description,category
+MOT-2808,Brushless motor 2808 1350KV,Propulsion
+MOT-4012,Brushless motor 4012 400KV,Propulsion
+ESC-35A,Electronic speed controller 35A,Propulsion
+ESC-60A,Electronic speed controller 60A,Propulsion
+PRP-10,Carbon fiber propeller 10in,Propulsion
+PRP-13,Carbon fiber propeller 13in,Propulsion
+BAT-6S-10,Li-ion battery pack 6S 10Ah,Power
+PDB-1,Power distribution board,Power
+WIR-HARN,Main wiring harness,Power
+FC-7,Flight controller FC-7,Avionics
+GPS-M9,GNSS GPS module M9,Avionics
+RAD-L1,Radio link module 900MHz SMA,Avionics
+RAD-L1B,Radio link module 900MHz U.FL,Avionics
+CAM-EO,4K visible camera module,Payload
+CAM-THM,Thermal camera module 640,Payload
+GMB-3,3-axis gimbal frame (no motors),Payload
+FRM-S1,Carbon frame Scout S1,Airframe
+FRM-P2,Carbon frame Patrol P2,Airframe
+FRM-H3,Carbon frame Hauler H3,Airframe
+LG-1,Landing gear set,Airframe
+FAS-M3,Screw M3x8 socket head,Hardware
+FAS-M4,Screw M4x12 socket head,Hardware
+ENC-IP65,Dock enclosure IP65,Dock
+PSU-1200,Power supply 1200W,Dock
+CHG-CON,Charging contact spring pair,Dock
+DCK-CTL,Dock controller board,Dock
+WX-SENS,Weather sensor module,Dock
