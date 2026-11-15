@@ -29,7 +29,7 @@ button[role="tab"] p {{font-weight: 600; color: {INK};}}
 button[role="tab"][aria-selected="true"] p {{color: {ACCENT};}}
 .pl-banner {{background:{PURPLE_LT}; border-left:5px solid {ACCENT}; padding:.8rem 1.1rem; border-radius:6px; font-size:.95rem; color:{INK};}}
 .pl-warn {{background:#FFF4E5; border-left:5px solid {WARN}; padding:.8rem 1.1rem; border-radius:6px; font-size:.95rem; color:{INK};}}
-.pl-big {{font-size:2.5rem; font-weight:800; color:{ACCENT}; line-height:1.05; margin:.1rem 0;}}
+.pl-big {{font-size:2.05rem; font-weight:800; color:{ACCENT}; line-height:1.1; margin:.1rem 0; white-space:nowrap;}}
 .pl-lab {{font-size:.8rem; font-weight:700; color:{INK}; text-transform:uppercase; letter-spacing:.06em;}}
 .pl-sub {{font-size:.88rem; color:{MUTED};}}
 .pl-card {{background:#FFFFFF; border:1px solid #E2D5F5; border-top:5px solid {ACCENT}; border-radius:8px; padding:.9rem 1rem; height:100%;}}
