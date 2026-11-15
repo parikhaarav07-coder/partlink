@@ -4,6 +4,7 @@ BOM-to-spend cost linkage on synthetic data. Hackathon: UIUC x Kearney PERLab, T
 Run: `pip install -r requirements.txt && streamlit run app.py` (pick an industry in the sidebar, or open `?pack=medical`).
 
 ## Layout
+- `.streamlit/config.toml` light purple theme (Kearney-style accent; brand colors approximated, no logo used).
 - `core/` industry-agnostic engine: `matcher.py` (normalize, match, unit conversion), `analytics.py` (cost per unit, savings, near-duplicates, briefs), `evaluate.py` (grading), `store.py` (SQLite for review decisions and the savings ledger, per session), `pack.py` (loads packs).
 - `packs/<industry>/` everything industry-specific: `pack.json` (labels, rule bases, wording, vocabulary, unit factors), `data/` (same CSV schema for every pack), `_answer_key/` (demo-only grading), `spec.py` (synthetic data generator spec).
 - `rules/<industry>.json` dated rule records (title, authority, status, date, source, review date, which parts and suppliers it touches). Powers the Regulatory outlook tab. Six industries are covered; drones and medical devices also have full data packs.

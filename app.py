@@ -17,16 +17,25 @@ from core.pack import list_packs, load_pack
 
 st.set_page_config(page_title="PartLink", page_icon="🔗", layout="wide")
 
-INK, MUTED, ACCENT, WARN, GOOD = "#1f2937", "#6b7280", "#2563eb", "#d97706", "#059669"
+INK, MUTED, ACCENT, WARN, GOOD = "#14121A", "#3F3B4A", "#7823DC", "#C2410C", "#047857"
+PURPLE_DK, PURPLE_LT = "#4B1A8F", "#F5F0FC"
 st.markdown(f"""
 <style>
-.block-container {{padding-top: 1.6rem; max-width: 1250px;}}
-h1, h2, h3 {{color: {INK}; letter-spacing: -0.01em;}}
-.pl-banner {{background:#f1f5f9; border-left:4px solid {ACCENT}; padding:.7rem 1rem; border-radius:6px; font-size:.92rem; color:{INK};}}
-.pl-warn {{background:#fffbeb; border-left:4px solid {WARN}; padding:.7rem 1rem; border-radius:6px; font-size:.92rem; color:{INK};}}
-.pl-big {{font-size:2.0rem; font-weight:700; color:{INK}; line-height:1.1;}}
-.pl-lab {{font-size:.82rem; color:{MUTED}; text-transform:uppercase; letter-spacing:.04em;}}
-.pl-sub {{font-size:.85rem; color:{MUTED};}}
+.block-container {{padding-top: 1.4rem; max-width: 1250px;}}
+h1, h2, h3, h4, h5 {{color: {INK}; letter-spacing: -0.01em;}}
+h1 {{font-weight: 800;}}
+[data-testid="stSidebar"] {{background: {PURPLE_LT}; border-right: 1px solid #E2D5F5;}}
+button[role="tab"] p {{font-weight: 600; color: {INK};}}
+button[role="tab"][aria-selected="true"] p {{color: {ACCENT};}}
+.pl-banner {{background:{PURPLE_LT}; border-left:5px solid {ACCENT}; padding:.8rem 1.1rem; border-radius:6px; font-size:.95rem; color:{INK};}}
+.pl-warn {{background:#FFF4E5; border-left:5px solid {WARN}; padding:.8rem 1.1rem; border-radius:6px; font-size:.95rem; color:{INK};}}
+.pl-big {{font-size:2.5rem; font-weight:800; color:{ACCENT}; line-height:1.05; margin:.1rem 0;}}
+.pl-lab {{font-size:.8rem; font-weight:700; color:{INK}; text-transform:uppercase; letter-spacing:.06em;}}
+.pl-sub {{font-size:.88rem; color:{MUTED};}}
+.pl-card {{background:#FFFFFF; border:1px solid #E2D5F5; border-top:5px solid {ACCENT}; border-radius:8px; padding:.9rem 1rem; height:100%;}}
+.pl-card b {{color:{ACCENT};}}
+.pl-step {{font-size:.78rem; font-weight:800; color:{ACCENT}; letter-spacing:.08em;}}
+.pl-hero {{font-size:1.15rem; font-weight:600; color:{INK}; margin:.2rem 0 .8rem 0;}}
 </style>""", unsafe_allow_html=True)
 
 PACKS = list_packs()
@@ -90,11 +99,21 @@ st.markdown(f'<div class="pl-banner"><b>Demo on synthetic data.</b> {X("company_
             'compliance determination.</div>', unsafe_allow_html=True)
 st.write("")
 
-TAB_NAMES = ['Overview', 'Cost per unit (est.)', 'Review queue', 'Savings simulator', 'Savings ledger', 'Negotiation brief', 'Match quality', 'Regulatory outlook', 'Pilot & limits']
-tabs = dict(zip(TAB_NAMES, st.tabs(TAB_NAMES)))
+MAIN_TABS = ["Overview", "Review queue", "Savings simulator", "Regulatory outlook", "Pilot & limits", "More"]
+MORE_TABS = ["Cost per unit (est.)", "Savings ledger", "Negotiation brief", "Match quality"]
+tabs = dict(zip(MAIN_TABS, st.tabs(MAIN_TABS)))
+with tabs["More"]:
+    st.caption("Supporting views: cost per unit, the savings ledger, negotiation briefs and match quality.")
+    tabs.update(dict(zip(MORE_TABS, st.tabs(MORE_TABS))))
 
 # ------------------------------------------------------------------------ overview
 with tabs["Overview"]:
+    st.markdown('<div class="pl-hero">A company\'s bill of materials says what it builds. Its spend data says what it bought. Nobody joins them, so nobody knows what a product really costs or which savings are real.</div>', unsafe_allow_html=True)
+    s1, s2, s3 = st.columns(3)
+    s1.markdown('<div class="pl-card"><div class="pl-step">1 · CONNECT</div><b>Every purchase line to its approved part</b><br>Messy descriptions, units and supplier codes are normalized and matched.</div>', unsafe_allow_html=True)
+    s2.markdown('<div class="pl-card"><div class="pl-step">2 · CHECK</div><b>A human reviews every doubtful match</b><br>A wrong guess never silently changes a cost number.</div>', unsafe_allow_html=True)
+    s3.markdown('<div class="pl-card"><div class="pl-step">3 · DECIDE</div><b>Cost per unit and savings net of rules</b><br>Including spares, with sourcing rules as dated, cited evidence.</div>', unsafe_allow_html=True)
+    st.write("")
     sc_all = A.savings_scenario(m, d)
     sp = A.spares_premium(m)
     tc = A.true_cost(m, d)
@@ -224,7 +243,7 @@ with tabs["Savings simulator"]:
     st.altair_chart(alt.Chart(bar).mark_bar().encode(
         y=alt.Y("part_id:N", sort="-x", title=None),
         x=alt.X("usd:Q", title="Potential annual savings (USD)"),
-        yOffset="view:N", color=alt.Color("view:N", scale=alt.Scale(range=["#cbd5e1", ACCENT]), legend=alt.Legend(title=None, orient="top")),
+        yOffset="view:N", color=alt.Color("view:N", scale=alt.Scale(range=["#C9B8E8", ACCENT]), legend=alt.Legend(title=None, orient="top")),
         tooltip=["part_id", "view", alt.Tooltip("usd:Q", format="$,.0f")]).properties(height=360), width='stretch')
     st.dataframe(sc[["part_id", "requirement_basis", "avg_paid", "best_any_supplier", "best_compliant", "naive_savings",
                      "compliance_cost", "scenario_savings"]].rename(columns={
@@ -344,6 +363,20 @@ with tabs["Regulatory outlook"]:
         kpi(k[1], "Next dated change", f"{sched[0]['Days']} days", sched[0]["Rule"][:70])
         kpi(k[2], "Spend it would touch", usd(sched[0]["Exposed spend"]), "production spend with affected suppliers")
     st.write("")
+    dated = [{"Rule": (r["title"][:46] + ("…" if len(r["title"]) > 46 else "")), "Date": r["date"], "Status": foresight.STATUS_LABEL[r["status"]]}
+             for r in rules if r.get("date")]
+    if dated:
+        tdf = pd.DataFrame(dated)
+        tdf["Date"] = pd.to_datetime(tdf["Date"])
+        today = pd.Timestamp.today().normalize()
+        base = alt.Chart(tdf).encode(y=alt.Y("Rule:N", sort=alt.EncodingSortField("Date"), title=None, axis=alt.Axis(labelLimit=330, labelColor=INK)))
+        pts = base.mark_circle(size=260).encode(x=alt.X("Date:T", title=None),
+            color=alt.Color("Status:N", scale=alt.Scale(domain=["In force", "Scheduled", "Pending"], range=[ACCENT, WARN, "#6B7280"]), legend=alt.Legend(title=None, orient="top")),
+            tooltip=["Rule", alt.Tooltip("Date:T", format="%d %b %Y"), "Status"])
+        line = alt.Chart(pd.DataFrame({"Date": [today]})).mark_rule(color=INK, strokeDash=[4, 4]).encode(x="Date:T")
+        lab = alt.Chart(pd.DataFrame({"Date": [today], "t": ["today"]})).mark_text(dy=-6, align="left", dx=4, color=INK, fontWeight="bold").encode(x="Date:T", text="t:N", y=alt.value(8))
+        st.altair_chart((pts + line + lab).properties(height=max(150, 46 * len(tdf))), width="stretch")
+        st.caption("Dated rules only. Undated rules are in the table below.")
     tbl = pd.DataFrame([{k_: v for k_, v in x.items() if not k_.startswith("_")} for x in rows])
     st.dataframe(tbl.style.format({"Exposed spend": "${:,.0f}", "Days": "{:,.0f}"}, na_rep="-"), hide_index=True, width='stretch')
     if rules:
