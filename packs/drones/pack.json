@@ -1,0 +1,138 @@
+{
+ "id": "drones",
+ "order": 1,
+ "name": "Drones (defense & public safety)",
+ "uom": {
+  "PR": 2,
+  "BX100": 100
+ },
+ "spares_plant_prefix": "MEM",
+ "lexicon": {
+  "synonyms": {
+   "mtr": "motor",
+   "bldc": "brushless",
+   "ctrl": "controller",
+   "control": "controller",
+   "brd": "board",
+   "pcb": "board",
+   "mod": "module",
+   "pwr": "power",
+   "dist": "distribution",
+   "cam": "camera",
+   "flt": "flight",
+   "batt": "battery",
+   "prop": "propeller",
+   "cf": "carbon",
+   "hsg": "housing",
+   "assy": "assembly",
+   "thm": "thermal",
+   "ir": "thermal",
+   "imager": "camera",
+   "eo": "visible",
+   "rf": "radio",
+   "telemetry": "link",
+   "weatherproof": "",
+   "pogo": "spring",
+   "housing": "enclosure",
+   "skid": "gear",
+   "landing": "landing",
+   "gnss": "gps",
+   "speed": "speed",
+   "amp": "a",
+   "pdb": "pdb",
+   "fiber": "carbon",
+   "liion": "liion",
+   "pack": "",
+   "smart": "",
+   "outdoor": "",
+   "ax": "axis",
+   "3ax": "3 axis",
+   "autopilot": "controller",
+   "harness": "harness",
+   "cable": "",
+   "uf1": "ufl"
+  },
+  "expansions": {
+   "pdb": [
+    "power",
+    "distribution",
+    "board"
+   ],
+   "esc": [
+    "electronic",
+    "speed",
+    "controller"
+   ],
+   "fc": [
+    "flight",
+    "controller"
+   ],
+   "psu": [
+    "power",
+    "supply"
+   ],
+   "wx": [
+    "weather"
+   ]
+  },
+  "replacements": [
+   [
+    "u.fl",
+    "ufl"
+   ],
+   [
+    "li-ion",
+    "liion"
+   ],
+   [
+    "m9n",
+    "m9"
+   ],
+   [
+    "3-axis",
+    "3 axis"
+   ]
+  ],
+  "prefix_digits": {
+   "fc": [
+    "flight",
+    "controller"
+   ]
+  }
+ },
+ "rule_bases": [
+  {
+   "id": "statutory",
+   "label": "Statutory (named in FY2020 NDAA s848)"
+  },
+  {
+   "id": "blue_framework",
+   "label": "Blue UAS Framework category (DCMA)"
+  },
+  {
+   "id": "buyer_imposed",
+   "label": "Buyer / contract imposed"
+  }
+ ],
+ "terms": {
+  "restricted_variant": "government",
+  "compliant": "compliant",
+  "rule_cost": "Compliance cost",
+  "rule_cost_sub": "forced moves for restricted parts",
+  "binding_label": "Requirements treated as binding for government-variant volume",
+  "restricted_note": "keeping restricted parts with compliant suppliers",
+  "company": "drone maker"
+ },
+ "text": {
+  "company_blurb": "A fictional drone maker",
+  "review_example": "cartons look like propellers",
+  "rules_note": "Statutory means a named component category in the FY2020 NDAA \u00a7848. Blue UAS Framework (managed by DCMA) is a vetting program, not a statute; the FCC exemption for Blue UAS items runs to 1 Jan 2027 unless extended. Rules also reach any federally funded buyer (American Security Drone Act), not only DoD. Buyer-imposed comes from the customer contract. All are screening inputs, not legal conclusions. Rules last checked 2026-11-01 (demo).",
+  "spares_note": "Spares often cost more for good reasons (small lots, fast delivery). No typical drone-spares markup is published, so treat this as a prompt to ask, not a verdict.",
+  "rules_change_example": "Rules change (e.g. the FCC Blue UAS exemption runs to 1 Jan 2027 unless extended).",
+  "pilot_scope": "one consenting U.S. drone maker, one product family, 2 to 3 BOM revisions, purchased assemblies and recurring spares",
+  "match_notes": [
+   "**Text alone** auto-accepts about 77% of part lines with zero wrong; **supplier-SKU history** (a SKU confirmed once vouches for its other lines) lifts that to {auto_share}.",
+   "On **54 fresh descriptions written after tuning** (text only), 42 were auto-accepted with none wrong, and the other 12 went to review with the right guess on top. Small sample."
+  ]
+ }
+}

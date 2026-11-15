@@ -1,0 +1,117 @@
+{
+ "id": "medical",
+ "order": 2,
+ "name": "Medical devices",
+ "uom": {
+  "BX100": 100
+ },
+ "spares_plant_prefix": "SVC",
+ "lexicon": {
+  "synonyms": {
+   "mod": "module",
+   "ctrl": "controller",
+   "control": "controller",
+   "brd": "board",
+   "pcb": "board",
+   "hsg": "enclosure",
+   "housing": "enclosure",
+   "assy": "assembly",
+   "batt": "battery",
+   "liion": "liion",
+   "disp": "display",
+   "touchscreen": "touch",
+   "lcd": "display",
+   "bt": "bluetooth",
+   "wi-fi": "wifi",
+   "ox": "oximetry",
+   "pulse": "pulse",
+   "sil": "silicone",
+   "blk": "black",
+   "clr": "clear",
+   "phms": "screw",
+   "psu": "power",
+   "probe": "transducer",
+   "afe": "front",
+   "hz": "hz",
+   "ghz": "ghz",
+   "mhz": "mhz",
+   "pump": "pump",
+   "front-end": "front",
+   "detect": "",
+   "sensor": "sensor",
+   "supply": "supply"
+  },
+  "expansions": {
+   "psu": [
+    "power",
+    "supply"
+   ],
+   "afe": [
+    "analog",
+    "front",
+    "end"
+   ],
+   "nibp": [
+    "nibp"
+   ]
+  },
+  "replacements": [
+   [
+    "li-ion",
+    "liion"
+   ],
+   [
+    "wi-fi",
+    "wifi"
+   ],
+   [
+    "front-end",
+    "front end"
+   ],
+   [
+    "spo2",
+    "spo2"
+   ],
+   [
+    "2.4ghz",
+    "2.4 ghz"
+   ]
+  ],
+  "prefix_digits": {}
+ },
+ "rule_bases": [
+  {
+   "id": "regulatory",
+   "label": "Supplier controls (FDA QMSR / ISO 13485)"
+  },
+  {
+   "id": "standard",
+   "label": "Safety certification expected (standards)"
+  },
+  {
+   "id": "buyer_imposed",
+   "label": "Cybersecurity / customer imposed (FD&C 524B, contract)"
+  }
+ ],
+ "terms": {
+  "restricted_variant": "clinical",
+  "compliant": "qualified",
+  "rule_cost": "Qualification cost",
+  "rule_cost_sub": "forced moves for regulated parts",
+  "binding_label": "Requirements treated as binding for clinical-variant volume",
+  "restricted_note": "keeping regulated parts with qualified suppliers",
+  "company": "medical-device maker"
+ },
+ "text": {
+  "company_blurb": "A fictional medical-device maker (bedside monitor, infusion pump, handheld ultrasound)",
+  "review_example": "cartons look like gaskets",
+  "rules_note": "Supplier controls come from 21 CFR Part 820 (FDA QMSR, effective 2 Feb 2026, incorporating ISO 13485 purchasing controls). Wireless parts matter because connected devices fall under FD&C Act s524B cybersecurity rules (SBOM, vulnerability plan). Customer contracts add attestations. All are screening inputs, not legal conclusions. Company, parts and prices are synthetic. Rules last reviewed 2026-11-14 (see Regulatory outlook for sources).",
+  "spares_note": "Field-service parts often cost more for good reasons (small lots, fast delivery). No typical medical spares markup is published, so treat this as a prompt to ask, not a verdict.",
+  "rules_change_example": "Rules change (e.g. a pending Section 232 decision on medical devices could add tariffs on imported parts).",
+  "pilot_scope": "one consenting device maker, one product family, 2 to 3 BOM revisions, purchased assemblies and recurring spares",
+  "match_notes": [
+   "**Text alone** auto-accepts about 77% of part lines with zero wrong; **supplier-SKU history** (a SKU confirmed once vouches for its other lines) lifts that to {auto_share}.",
+   "The second-industry pack reuses the identical matching engine; only vocabulary and rule labels differ."
+  ]
+ }
+}

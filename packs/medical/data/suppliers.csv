@@ -1,0 +1,17 @@
+supplier_id,supplier_name,country,compliant_for_gov,supplier_type,evidence,checked_on
+SUP01,Northbridge Sensors,US,Y,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP02,Kestrel Sensing GmbH,Germany,Y,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP03,Shenhua Sensor Co,China,N,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP04,Lakeshore Medical Electronics,US,Y,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP05,Dongyang Boards,China,N,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP06,Fjord Display Tech,Denmark,Y,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP07,Brightview Panels,China,N,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP08,Cellvance Power,US,Y,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP09,Hanbit Energy,South Korea,Y,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP10,Greenlight Cells,China,N,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP11,Precision Flow Systems,US,Y,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP12,Polyform Housings,Mexico,Y,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP13,FastenRight Supply,US,Y,Distributor,ISO 13485 certificate on file (demo data),2026-11-14
+SUP14,MedParts Direct,US,Y,Distributor,ISO 13485 certificate on file (demo data),2026-11-14
+SUP15,Altus Power Systems,Taiwan,Y,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14
+SUP16,Brightline Power,China,N,Manufacturer,ISO 13485 certificate on file (demo data),2026-11-14

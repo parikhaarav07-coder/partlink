@@ -1,0 +1,158 @@
+{
+ "industry": "Drones (defense & public safety)",
+ "pack": "drones",
+ "rules": [
+  {
+   "id": "ndaa848",
+   "title": "FY2020 NDAA s848: covered drone components",
+   "authority": "U.S. Congress / DoD",
+   "kind": "statute",
+   "status": "in_force",
+   "date": null,
+   "date_label": "In force",
+   "summary": "Bars DoD purchase of drones and certain components (flight controllers, radios, data transmission devices, cameras, gimbals, ground control systems, operating software) made by covered foreign entities.",
+   "why_it_matters": "Parts in these named categories must come from eligible suppliers when they go into government-variant products.",
+   "source": "FY2020 National Defense Authorization Act, section 848",
+   "source_url": "https://www.congress.gov/bill/116th-congress/senate-bill/1790",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "basis": [
+     "statutory"
+    ],
+    "supplier": {
+     "flag": "N"
+    }
+   },
+   "impact": "switch",
+   "workaround": "Move volume to the cheapest eligible supplier already on file (see the table), or qualify a new one."
+  },
+  {
+   "id": "blue_uas",
+   "title": "DCMA Blue UAS framework",
+   "authority": "DCMA",
+   "kind": "program",
+   "status": "in_force",
+   "date": null,
+   "date_label": "In force",
+   "summary": "A vetting program for drone components. It is not a statute, but buyers often treat Blue UAS listing as the practical route to sell to DoD.",
+   "why_it_matters": "Framework-category parts (e.g. ESCs) are treated as restricted for government variants.",
+   "source": "DCMA Blue UAS framework (program guidance)",
+   "source_url": null,
+   "checked_on": "2026-11-14",
+   "confidence": "check dates before relying",
+   "scope": {
+    "basis": [
+     "blue_framework"
+    ],
+    "supplier": {
+     "flag": "N"
+    }
+   },
+   "impact": "switch",
+   "workaround": "Use Blue-listed or eligible suppliers for these parts; confirm the current list before buying."
+  },
+  {
+   "id": "fcc_covered",
+   "title": "FCC Covered List: foreign-made drones and critical components (exemptions end 1 Jan 2027)",
+   "authority": "FCC / DoD",
+   "kind": "regulation",
+   "status": "scheduled",
+   "date": "2027-01-01",
+   "date_label": "Exemptions expire 1 Jan 2027 unless extended",
+   "summary": "On 22 Dec 2025 the FCC added all foreign-produced drones and critical components to the Covered List, blocking new equipment authorizations. On 7 Jan 2026 it exempted two groups until 1 Jan 2027: items on the DCMA Blue UAS Cleared List, and items qualifying as domestic end products under Buy American (reported 65% U.S.-content threshold).",
+   "why_it_matters": "After the exemptions lapse, a new foreign-made part not on the Blue list or meeting the content test may not get new FCC authorization. Exposure shown is an upper bound: all production spend with non-eligible suppliers.",
+   "source": "FCC public notice (7 Jan 2026) and FAQs",
+   "source_url": "https://docs.fcc.gov/public/attachments/DOC-417528A1.pdf",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "all_production": true,
+    "supplier": {
+     "flag": "N"
+    }
+   },
+   "impact": "switch",
+   "workaround": "Pre-qualify eligible alternates before the date; watch for an FCC extension notice."
+  },
+  {
+   "id": "asda",
+   "title": "American Security Drone Act (FY2024 NDAA)",
+   "authority": "U.S. Congress",
+   "kind": "statute",
+   "status": "in_force",
+   "date": null,
+   "date_label": "Phased in; confirm dates",
+   "summary": "Extends covered-drone limits to purchases by federal agencies and, through grants and contracts, to federally funded buyers, not only DoD.",
+   "why_it_matters": "Widens who your customers can be, so more of your volume may need eligible parts.",
+   "source": "FY2024 National Defense Authorization Act (American Security Drone Act)",
+   "source_url": null,
+   "checked_on": "2026-11-14",
+   "confidence": "check dates before relying",
+   "scope": {
+    "basis": [
+     "statutory"
+    ],
+    "supplier": {
+     "flag": "N"
+    }
+   },
+   "impact": "switch",
+   "workaround": "Treat federally funded customers like DoD customers when planning supplier eligibility."
+  },
+  {
+   "id": "s232_uas",
+   "title": "Section 232 tariffs on drones and drone components (Proclamation 11055)",
+   "authority": "U.S. Commerce (BIS)",
+   "kind": "tariff",
+   "status": "in_force",
+   "date": "2026-09-03",
+   "date_label": "Effective 3 Sep 2026",
+   "summary": "Signed 13 Aug 2026. Reported rates: 100% on drones with thermal imaging, docking stations and certain critical components; 25% on drones of 25 kg or less without thermal imaging. Reduced country-specific rates and an onshoring relief program exist; scope can be expanded by Commerce.",
+   "why_it_matters": "Spend on imported drone parts now carries duty. Actual rate depends on the part's HTS code and country of origin, which this demo does not hold, so the slider applies one assumed rate to all non-U.S. supplier spend. Treat it as a scenario.",
+   "source": "Greenberg Traurig alert (Aug 2026); Troutman Pepper; GHY (CBP guidance 2 Sep 2026)",
+   "source_url": "https://www.gtlaw.com/en/insights/2026/8/president-trump-sets-new-drone-section-232-tariffs",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "all_production": true,
+    "supplier": {
+     "not_countries": [
+      "US"
+     ]
+    }
+   },
+   "impact": "tariff",
+   "workaround": "Re-source high-duty parts to U.S. or reduced-rate countries, or apply for the onshoring relief program; confirm HTS classification per part."
+  },
+  {
+   "id": "s232_uas_parts",
+   "title": "Section 232: 25% on additional drone parts (propellers, rotors, undercarriages)",
+   "authority": "U.S. Commerce / White House",
+   "kind": "tariff",
+   "status": "scheduled",
+   "date": "2027-02-09",
+   "date_label": "Effective 9 Feb 2027",
+   "summary": "A second tranche covers specified aircraft-part classifications imported for drone use, including propellers and rotors and undercarriages, at 25%.",
+   "why_it_matters": "Propeller and landing-gear spend from non-U.S. suppliers becomes dutiable. Rate shown is a scenario on all non-U.S. supplier spend for those parts.",
+   "source": "DroneLife (Aug 2026), summarizing the proclamation annexes",
+   "source_url": "https://dronelife.com/?p=110699",
+   "checked_on": "2026-11-14",
+   "confidence": "reported by one trade source; verify against the proclamation",
+   "scope": {
+    "parts": [
+     "PRP-10",
+     "PRP-13",
+     "LG-1"
+    ],
+    "supplier": {
+     "not_countries": [
+      "US"
+     ]
+    }
+   },
+   "impact": "tariff",
+   "workaround": "Qualify U.S. or reduced-rate sources for these parts before February."
+  }
+ ]
+}

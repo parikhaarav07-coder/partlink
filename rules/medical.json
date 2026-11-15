@@ -1,0 +1,126 @@
+{
+ "industry": "Medical devices",
+ "pack": "medical",
+ "rules": [
+  {
+   "id": "qmsr",
+   "title": "FDA Quality Management System Regulation (21 CFR Part 820)",
+   "authority": "FDA",
+   "kind": "regulation",
+   "status": "in_force",
+   "date": "2026-02-02",
+   "date_label": "Effective 2 Feb 2026",
+   "summary": "Replaced the older Quality System Regulation and incorporated ISO 13485:2016 by reference, including its purchasing and supplier-control clause (7.4).",
+   "why_it_matters": "Safety-critical parts need suppliers you have evaluated and can show records for. A supplier without a quality certificate on file is exposed.",
+   "source": "FDA, QMSR overview",
+   "source_url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "basis": [
+     "regulatory"
+    ],
+    "supplier": {
+     "flag": "N"
+    }
+   },
+   "impact": "switch",
+   "workaround": "Qualify and audit the supplier, or move volume to a supplier that already holds a certificate."
+  },
+  {
+   "id": "fdc524b",
+   "title": "FD&C Act s524B: cybersecurity for 'cyber devices'",
+   "authority": "FDA / U.S. Congress",
+   "kind": "statute",
+   "status": "in_force",
+   "date": "2023-03-29",
+   "date_label": "Effective 29 Mar 2023",
+   "summary": "Premarket submissions for connected devices must include a cybersecurity plan, a software bill of materials (SBOM) and a vulnerability-management plan.",
+   "why_it_matters": "Wireless modules and control boards bring third-party software into the device, so the supplier must supply SBOM data. This is documentation, not a ban.",
+   "source": "FDA premarket cybersecurity guidance and s524B",
+   "source_url": "https://www.fda.gov/medical-devices/digital-health-center-excellence/cybersecurity",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "basis": [
+     "buyer_imposed"
+    ],
+    "supplier": {
+     "flag": "N"
+    }
+   },
+   "impact": "documentation",
+   "workaround": "Ask each wireless-module supplier for SBOM and patch-support commitments in the contract."
+  },
+  {
+   "id": "eu_mdr",
+   "title": "EU MDR transition deadlines (Regulation 2023/607)",
+   "authority": "European Union",
+   "kind": "regulation",
+   "status": "scheduled",
+   "date": "2027-12-31",
+   "date_label": "31 Dec 2027 (class III, IIb implantable); 31 Dec 2028 (others)",
+   "summary": "Extended legacy-device deadlines: until 31 Dec 2027 or 31 Dec 2028 depending on risk class, if conditions are met.",
+   "why_it_matters": "If you sell in the EU, supplier files and component traceability must meet MDR expectations before your class deadline.",
+   "source": "Regulation (EU) 2023/607",
+   "source_url": "http://data.europa.eu/eli/reg/2023/607/oj",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "basis": [
+     "regulatory"
+    ],
+    "supplier": {
+     "flag": "N"
+    }
+   },
+   "impact": "documentation",
+   "workaround": "Check your device class; schedule supplier file reviews ahead of the deadline."
+  },
+  {
+   "id": "eu_mdr_simplify",
+   "title": "EU proposal to simplify the MDR and IVDR",
+   "authority": "European Commission",
+   "kind": "regulation",
+   "status": "pending",
+   "date": null,
+   "date_label": "Proposed 16 Dec 2025; not yet law",
+   "summary": "A Commission proposal (COM(2025) 1023) to reduce the burden of MDR and IVDR rules. It could change requirements and timelines.",
+   "why_it_matters": "Watch only: it is a proposal, so no exposure is calculated.",
+   "source": "COM(2025) 1023 final",
+   "source_url": "https://data.consilium.europa.eu/doc/document/ST-16919-2025-INIT/en/pdf",
+   "checked_on": "2026-11-14",
+   "confidence": "verified proposal exists; outcome unknown",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Track passage before changing EU compliance plans."
+  },
+  {
+   "id": "s232_med",
+   "title": "Section 232 investigation: PPE, medical consumables and medical equipment",
+   "authority": "U.S. Commerce (BIS)",
+   "kind": "tariff",
+   "status": "pending",
+   "date": "2025-09-02",
+   "date_label": "Opened 2 Sep 2025; no decision published as of Oct 2026",
+   "summary": "National-security investigation into imported medical devices, consumables and PPE. One source dated 28 Oct 2026 reports no report or proclamation has been published and the report deadline has passed.",
+   "why_it_matters": "A decision could land with little warning. If tariffs came, spend with non-U.S. suppliers would rise. Scope of component coverage is unknown, so the slider is a hypothetical.",
+   "source": "SPS Commerce, 'Section 232 Medical Device Tariffs: The Investigation That Never Closed' (28 Oct 2026)",
+   "source_url": "https://www.spscommerce.com/community/articles/section-232-medical-device-tariffs-the-investigation-that-never-closed",
+   "checked_on": "2026-11-14",
+   "confidence": "verified status as of Oct 2026",
+   "scope": {
+    "all_production": true,
+    "supplier": {
+     "not_countries": [
+      "US"
+     ]
+    }
+   },
+   "impact": "tariff",
+   "workaround": "Dual-source key parts now, and price the U.S.-made alternative so you can switch quickly."
+  }
+ ]
+}

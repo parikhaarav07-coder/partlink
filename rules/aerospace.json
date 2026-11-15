@@ -1,0 +1,66 @@
+{
+ "industry": "Aerospace and defense equipment",
+ "pack": null,
+ "rules": [
+  {
+   "id": "dfars_metals",
+   "title": "DFARS specialty metals restriction (252.225-7009)",
+   "authority": "DoD",
+   "kind": "regulation",
+   "status": "in_force",
+   "date": null,
+   "date_label": "In force (DFARS change effective 10 Nov 2025)",
+   "summary": "Certain specialty metals in articles delivered to DoD must be melted or produced in the U.S. or a qualifying country.",
+   "why_it_matters": "Metal parts need mill-origin evidence, not only supplier country.",
+   "source": "DFARS 252.225-7009",
+   "source_url": "https://www.acquisition.gov/dfars/252.225-7009-restriction-acquisition-certain-articles-containing-specialty-metals.",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Require melt-origin certificates on every metal PO."
+  },
+  {
+   "id": "dfars_counterfeit",
+   "title": "DFARS counterfeit electronic parts rules (252.246-7007, -7008)",
+   "authority": "DoD",
+   "kind": "regulation",
+   "status": "in_force",
+   "date": null,
+   "date_label": "In force",
+   "summary": "Contractors must run a counterfeit-detection system and buy electronic parts from original manufacturers or authorized sources where required.",
+   "why_it_matters": "Spend with distributors on electronic parts carries extra proof duties.",
+   "source": "DFARS 252.246-7007 and 252.246-7008",
+   "source_url": "https://www.acquisition.gov/dfars/252.246-7008-sources-electronic-parts.",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Flag distributor lines for electronic parts and keep traceability records."
+  },
+  {
+   "id": "s232_aircraft",
+   "title": "Section 232 investigation: commercial aircraft and jet engines",
+   "authority": "U.S. Commerce (BIS)",
+   "kind": "tariff",
+   "status": "pending",
+   "date": "2025-05-01",
+   "date_label": "Opened 1 May 2025; outcome not confirmed",
+   "summary": "Investigation into imports of commercial aircraft, jet engines and parts.",
+   "why_it_matters": "Could add tariffs on imported aerospace parts.",
+   "source": "Covington (Apr 2026)",
+   "source_url": "https://www.cov.com/en/news-and-insights/insights/2026/04/current-and-forthcoming-section-232-actions-by-the-trump-administration",
+   "checked_on": "2026-11-14",
+   "confidence": "verified opening; outcome not confirmed",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Check current status before planning."
+  }
+ ]
+}

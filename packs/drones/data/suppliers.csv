@@ -1,0 +1,17 @@
+supplier_id,supplier_name,country,compliant_for_gov,supplier_type,evidence,checked_on
+SUP01,Apex Motion Systems,US,Y,Manufacturer,self-attested origin (demo),2026-11-01
+SUP02,Meridian Drive Co,Taiwan,Y,Manufacturer,self-attested origin (demo),2026-11-01
+SUP03,Hualong Motor Works,China,N,Manufacturer,self-attested origin (demo),2026-11-01
+SUP04,Northfield Electronics,US,Y,Manufacturer,self-attested origin (demo),2026-11-01
+SUP05,Zhenrui Avionics,China,N,Manufacturer,self-attested origin (demo),2026-11-01
+SUP06,Cobalt Power Cells,US,Y,Manufacturer,self-attested origin (demo),2026-11-01
+SUP07,Lumen Cell Tech,South Korea,Y,Manufacturer,self-attested origin (demo),2026-11-01
+SUP08,Baolin Battery,China,N,Manufacturer,self-attested origin (demo),2026-11-01
+SUP09,SkyLink Radios,US,Y,Manufacturer,self-attested origin (demo),2026-11-01
+SUP10,Orion Optics,Japan,Y,Manufacturer,self-attested origin (demo),2026-11-01
+SUP11,Tianyu Imaging,China,N,Manufacturer,self-attested origin (demo),2026-11-01
+SUP12,CarbonWorks Aero,US,Y,Manufacturer,self-attested origin (demo),2026-11-01
+SUP13,BoltPoint Supply,US,Y,Distributor,self-attested origin (demo),2026-11-01
+SUP14,DroneParts Direct,US,Y,Distributor,self-attested origin (demo),2026-11-01
+SUP15,Pacific Enclosures,Mexico,Y,Manufacturer,self-attested origin (demo),2026-11-01
+SUP16,Everbright Power,China,N,Manufacturer,self-attested origin (demo),2026-11-01

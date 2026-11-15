@@ -1,0 +1,23 @@
+part_id,description,category
+SPO2-MOD,Pulse oximetry SpO2 sensor module,Sensing
+ECG-AFE,ECG analog front-end module 5-lead,Sensing
+NIBP-PMP,NIBP cuff inflation pump assembly,Sensing
+TRD-US,Ultrasound transducer array 3.5MHz,Sensing
+MCU-V1,Main control board monitor V1,Electronics
+MCU-I2,Main control board pump I2,Electronics
+MCU-U3,Main control board ultrasound U3,Electronics
+WIFI-MOD,WiFi module 2.4GHz dual-band,Electronics
+BLE-MOD,Bluetooth LE module 2.4GHz,Electronics
+LCD-7,Touch display 7in,Display
+LCD-4,Touch display 4in,Display
+BAT-2S,Li-ion battery pack 2S 3.4Ah,Power
+PSU-24,Medical power supply 24V 60W,Power
+PMP-PER,Peristaltic pump mechanism,Fluidics
+OCC-SEN,Occlusion sensor assembly,Fluidics
+ENC-V1,Enclosure housing monitor V1,Housing
+ENC-I2,Enclosure housing pump I2,Housing
+ENC-U3,Enclosure housing ultrasound U3,Housing
+GSK-BLK,Silicone gasket seal black,Housing
+GSK-CLR,Silicone gasket seal clear,Housing
+FAS-M2,Screw M2x6 pan head,Hardware
+FAS-M3,Screw M3x8 pan head,Hardware

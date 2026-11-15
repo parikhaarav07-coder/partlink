@@ -1,0 +1,7 @@
+product_id,family,product_name,variant,target_segment,annual_units,description
+V1-C,V1,Vitals monitor V1,Clinical,Hospitals and clinics,6000,Bedside patient vital-signs monitor
+V1-V,V1,Vitals monitor V1,Veterinary,Veterinary,3500,Bedside patient vital-signs monitor
+I2-C,I2,Infusion pump I2,Clinical,Hospitals and clinics,4000,Large-volume infusion pump
+I2-V,I2,Infusion pump I2,Veterinary,Veterinary,1200,Large-volume infusion pump
+U3-C,U3,Handheld ultrasound U3,Clinical,Hospitals and clinics,2500,Portable point-of-care ultrasound
+U3-V,U3,Handheld ultrasound U3,Veterinary,Veterinary,1800,Portable point-of-care ultrasound

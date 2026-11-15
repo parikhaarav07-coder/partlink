@@ -1,0 +1,26 @@
+{
+ "industry": "Industrial machinery and robotics",
+ "pack": null,
+ "rules": [
+  {
+   "id": "s232_robotics",
+   "title": "Section 232 investigation: robotics and industrial machinery",
+   "authority": "U.S. Commerce (BIS)",
+   "kind": "tariff",
+   "status": "pending",
+   "date": "2025-09-02",
+   "date_label": "Opened 2 Sep 2025; open and report overdue per CSIS",
+   "summary": "Covers computer-controlled mechanical systems, milling machines, stamping and pressing machines and related components.",
+   "why_it_matters": "A decision could raise the cost of imported machinery parts and subassemblies.",
+   "source": "CSIS, 'Section 232 Explained'",
+   "source_url": "https://www.csis.org/analysis/section-232-explained",
+   "checked_on": "2026-11-14",
+   "confidence": "verified status per CSIS",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Watch for a proclamation; price domestic alternates."
+  }
+ ]
+}

@@ -1,0 +1,15 @@
+part_id,description,requirement_basis,basis_note,checked_on
+BAT-6S-10,Li-ion battery pack 6S 10Ah,buyer_imposed,Customer contract or program requirement. Not named in s848. Check the governing contract.,2026-11-01
+CAM-EO,4K visible camera module,statutory,"Named component category in FY2020 NDAA s848. Screening input, not a legal determination.",2026-11-01
+CAM-THM,Thermal camera module 640,statutory,"Named component category in FY2020 NDAA s848. Screening input, not a legal determination.",2026-11-01
+DCK-CTL,Dock controller board,buyer_imposed,Customer contract or program requirement. Not named in s848. Check the governing contract.,2026-11-01
+ESC-35A,Electronic speed controller 35A,blue_framework,"Component category in the Blue UAS Framework (DCMA-managed vetting program, not a statute). Check the current listing; FCC exemption for Blue UAS items runs to 1 Jan 2027 unless extended.",2026-11-01
+ESC-60A,Electronic speed controller 60A,blue_framework,"Component category in the Blue UAS Framework (DCMA-managed vetting program, not a statute). Check the current listing; FCC exemption for Blue UAS items runs to 1 Jan 2027 unless extended.",2026-11-01
+FC-7,Flight controller FC-7,statutory,"Named component category in FY2020 NDAA s848. Screening input, not a legal determination.",2026-11-01
+GPS-M9,GNSS GPS module M9,buyer_imposed,Customer contract or program requirement. Not named in s848. Check the governing contract.,2026-11-01
+MOT-2808,Brushless motor 2808 1350KV,buyer_imposed,Customer contract or program requirement. Not named in s848. Check the governing contract.,2026-11-01
+MOT-4012,Brushless motor 4012 400KV,buyer_imposed,Customer contract or program requirement. Not named in s848. Check the governing contract.,2026-11-01
+PDB-1,Power distribution board,buyer_imposed,Customer contract or program requirement. Not named in s848. Check the governing contract.,2026-11-01
+PSU-1200,Power supply 1200W,buyer_imposed,Customer contract or program requirement. Not named in s848. Check the governing contract.,2026-11-01
+RAD-L1,Radio link module 900MHz SMA,statutory,"Named component category in FY2020 NDAA s848. Screening input, not a legal determination.",2026-11-01
+RAD-L1B,Radio link module 900MHz U.FL,statutory,"Named component category in FY2020 NDAA s848. Screening input, not a legal determination.",2026-11-01

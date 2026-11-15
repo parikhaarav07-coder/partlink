@@ -1,0 +1,86 @@
+{
+ "industry": "Automotive and EV batteries",
+ "pack": null,
+ "rules": [
+  {
+   "id": "pfe_45x",
+   "title": "OBBBA 'prohibited foreign entity' material-assistance rules (45X, 48E)",
+   "authority": "U.S. Treasury / IRS",
+   "kind": "statute",
+   "status": "in_force",
+   "date": "2026-01-01",
+   "date_label": "Applies to components sold after 31 Dec 2025",
+   "summary": "Tax credits for battery components limit how much of the product's direct material cost may come from prohibited foreign entities. The share is measured by a material assistance cost ratio (MACR); IRS Notice 2026-15 (12 Feb 2026) gave interim guidance.",
+   "why_it_matters": "This is a cost-weighted rule, so it needs BOM cost by supplier: exactly the join PartLink does.",
+   "source": "IRS Notice 2026-15; EY Tax News (17 Feb 2026)",
+   "source_url": "https://taxnews.ey.com/news/2026-0457",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Compute the ratio per product, and shift material to non-prohibited suppliers where it falls short."
+  },
+  {
+   "id": "pfe_tables",
+   "title": "Treasury safe-harbor tables for the MACR due",
+   "authority": "U.S. Treasury",
+   "kind": "regulation",
+   "status": "scheduled",
+   "date": "2026-12-31",
+   "date_label": "Due by 31 Dec 2026",
+   "summary": "The law requires Treasury to issue safe-harbor tables, letting taxpayers estimate prohibited-foreign-entity cost shares.",
+   "why_it_matters": "Tables change how easily you can show compliance.",
+   "source": "EY Tax News (28 Jul 2025)",
+   "source_url": "https://taxnews.ey.com/news/2025-1608",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Plan to re-run the ratio when tables publish."
+  },
+  {
+   "id": "eubr_passport",
+   "title": "EU Batteries Regulation: digital battery passport",
+   "authority": "European Union",
+   "kind": "regulation",
+   "status": "scheduled",
+   "date": "2027-02-18",
+   "date_label": "Mandatory 18 Feb 2027",
+   "summary": "EV batteries, light-means-of-transport batteries and industrial batteries above 2 kWh need a digital passport with composition and footprint data.",
+   "why_it_matters": "Passport data comes from the supplier chain, so you need part-to-supplier traceability for each battery.",
+   "source": "Regulation (EU) 2023/1542",
+   "source_url": "http://data.europa.eu/eli/reg/2023/1542/oj",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Start collecting supplier composition data now."
+  },
+  {
+   "id": "eubr_dd",
+   "title": "EU Batteries Regulation: supply-chain due diligence",
+   "authority": "European Union",
+   "kind": "regulation",
+   "status": "scheduled",
+   "date": "2027-08-18",
+   "date_label": "Applies from 18 Aug 2027 (postponed by Regulation 2025/1561)",
+   "summary": "Due-diligence policies for cobalt, lithium, nickel and natural graphite. Companies under EUR 40M net turnover are exempt under conditions.",
+   "why_it_matters": "Needs supplier mapping several tiers deep.",
+   "source": "Regulation (EU) 2025/1561",
+   "source_url": "http://data.europa.eu/eli/reg/2025/1561/oj",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Map suppliers of the four materials."
+  }
+ ]
+}

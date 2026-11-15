@@ -1,0 +1,23 @@
+part_id,description,annual_spare_demand_units,driver
+SPO2-MOD,Pulse oximetry SpO2 sensor module,570,field repair
+ECG-AFE,ECG analog front-end module 5-lead,380,field repair
+NIBP-PMP,NIBP cuff inflation pump assembly,665,field repair
+TRD-US,Ultrasound transducer array 3.5MHz,215,field repair
+MCU-V1,Main control board monitor V1,190,field repair
+MCU-I2,Main control board pump I2,104,field repair
+MCU-U3,Main control board ultrasound U3,129,field repair
+WIFI-MOD,WiFi module 2.4GHz dual-band,380,field repair
+BLE-MOD,Bluetooth LE module 2.4GHz,276,field repair
+LCD-7,Touch display 7in,690,field repair
+LCD-4,Touch display 4in,260,field repair
+BAT-2S,Li-ion battery pack 2S 3.4Ah,5825,wear and field replacement
+PSU-24,Medical power supply 24V 60W,882,field repair
+PMP-PER,Peristaltic pump mechanism,416,wear and field replacement
+OCC-SEN,Occlusion sensor assembly,624,wear and field replacement
+ENC-V1,Enclosure housing monitor V1,190,field repair
+ENC-I2,Enclosure housing pump I2,104,field repair
+ENC-U3,Enclosure housing ultrasound U3,129,field repair
+GSK-BLK,Silicone gasket seal black,2420,wear and field replacement
+GSK-CLR,Silicone gasket seal clear,1380,wear and field replacement
+FAS-M2,Screw M2x6 pan head,4700,field repair
+FAS-M3,Screw M3x8 pan head,1814,field repair

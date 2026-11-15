@@ -1,0 +1,71 @@
+bom_line_id,product_id,assembly,part_id,part_description,qty_per_unit,uom,requires_compliant_supplier,requirement_basis
+BL-0001,V1-C,Sensing,SPO2-MOD,Pulse oximetry SpO2 sensor module,1,EA,Y,regulatory
+BL-0002,V1-C,Sensing,ECG-AFE,ECG analog front-end module 5-lead,1,EA,Y,regulatory
+BL-0003,V1-C,Sensing,NIBP-PMP,NIBP cuff inflation pump assembly,1,EA,Y,regulatory
+BL-0004,V1-C,Electronics,MCU-V1,Main control board monitor V1,1,EA,Y,regulatory
+BL-0005,V1-C,Electronics,WIFI-MOD,WiFi module 2.4GHz dual-band,1,EA,Y,buyer_imposed
+BL-0006,V1-C,Electronics,BLE-MOD,Bluetooth LE module 2.4GHz,1,EA,Y,buyer_imposed
+BL-0007,V1-C,Display,LCD-7,Touch display 7in,1,EA,N,
+BL-0008,V1-C,Power,BAT-2S,Li-ion battery pack 2S 3.4Ah,1,EA,Y,standard
+BL-0009,V1-C,Power,PSU-24,Medical power supply 24V 60W,1,EA,Y,standard
+BL-0010,V1-C,Housing,ENC-V1,Enclosure housing monitor V1,1,EA,N,
+BL-0011,V1-C,Housing,GSK-BLK,Silicone gasket seal black,2,EA,N,
+BL-0012,V1-C,Hardware,FAS-M2,Screw M2x6 pan head,24,EA,N,
+BL-0013,V1-C,Hardware,FAS-M3,Screw M3x8 pan head,8,EA,N,
+BL-0014,V1-V,Sensing,SPO2-MOD,Pulse oximetry SpO2 sensor module,1,EA,N,
+BL-0015,V1-V,Sensing,ECG-AFE,ECG analog front-end module 5-lead,1,EA,N,
+BL-0016,V1-V,Sensing,NIBP-PMP,NIBP cuff inflation pump assembly,1,EA,N,
+BL-0017,V1-V,Electronics,MCU-V1,Main control board monitor V1,1,EA,N,
+BL-0018,V1-V,Electronics,WIFI-MOD,WiFi module 2.4GHz dual-band,1,EA,N,
+BL-0019,V1-V,Electronics,BLE-MOD,Bluetooth LE module 2.4GHz,1,EA,N,
+BL-0020,V1-V,Display,LCD-7,Touch display 7in,1,EA,N,
+BL-0021,V1-V,Power,BAT-2S,Li-ion battery pack 2S 3.4Ah,1,EA,N,
+BL-0022,V1-V,Power,PSU-24,Medical power supply 24V 60W,1,EA,N,
+BL-0023,V1-V,Housing,ENC-V1,Enclosure housing monitor V1,1,EA,N,
+BL-0024,V1-V,Housing,GSK-BLK,Silicone gasket seal black,2,EA,N,
+BL-0025,V1-V,Hardware,FAS-M2,Screw M2x6 pan head,24,EA,N,
+BL-0026,V1-V,Hardware,FAS-M3,Screw M3x8 pan head,8,EA,N,
+BL-0027,I2-C,Electronics,MCU-I2,Main control board pump I2,1,EA,Y,regulatory
+BL-0028,I2-C,Fluidics,PMP-PER,Peristaltic pump mechanism,1,EA,Y,regulatory
+BL-0029,I2-C,Fluidics,OCC-SEN,Occlusion sensor assembly,2,EA,Y,regulatory
+BL-0030,I2-C,Electronics,WIFI-MOD,WiFi module 2.4GHz dual-band,1,EA,Y,buyer_imposed
+BL-0031,I2-C,Display,LCD-4,Touch display 4in,1,EA,N,
+BL-0032,I2-C,Power,BAT-2S,Li-ion battery pack 2S 3.4Ah,1,EA,Y,standard
+BL-0033,I2-C,Power,PSU-24,Medical power supply 24V 60W,1,EA,Y,standard
+BL-0034,I2-C,Housing,ENC-I2,Enclosure housing pump I2,1,EA,N,
+BL-0035,I2-C,Housing,GSK-BLK,Silicone gasket seal black,1,EA,N,
+BL-0036,I2-C,Housing,GSK-CLR,Silicone gasket seal clear,1,EA,N,
+BL-0037,I2-C,Hardware,FAS-M2,Screw M2x6 pan head,30,EA,N,
+BL-0038,I2-C,Hardware,FAS-M3,Screw M3x8 pan head,12,EA,N,
+BL-0039,I2-V,Electronics,MCU-I2,Main control board pump I2,1,EA,N,
+BL-0040,I2-V,Fluidics,PMP-PER,Peristaltic pump mechanism,1,EA,N,
+BL-0041,I2-V,Fluidics,OCC-SEN,Occlusion sensor assembly,2,EA,N,
+BL-0042,I2-V,Electronics,WIFI-MOD,WiFi module 2.4GHz dual-band,1,EA,N,
+BL-0043,I2-V,Display,LCD-4,Touch display 4in,1,EA,N,
+BL-0044,I2-V,Power,BAT-2S,Li-ion battery pack 2S 3.4Ah,1,EA,N,
+BL-0045,I2-V,Power,PSU-24,Medical power supply 24V 60W,1,EA,N,
+BL-0046,I2-V,Housing,ENC-I2,Enclosure housing pump I2,1,EA,N,
+BL-0047,I2-V,Housing,GSK-BLK,Silicone gasket seal black,1,EA,N,
+BL-0048,I2-V,Housing,GSK-CLR,Silicone gasket seal clear,1,EA,N,
+BL-0049,I2-V,Hardware,FAS-M2,Screw M2x6 pan head,30,EA,N,
+BL-0050,I2-V,Hardware,FAS-M3,Screw M3x8 pan head,12,EA,N,
+BL-0051,U3-C,Sensing,TRD-US,Ultrasound transducer array 3.5MHz,1,EA,Y,regulatory
+BL-0052,U3-C,Electronics,MCU-U3,Main control board ultrasound U3,1,EA,Y,regulatory
+BL-0053,U3-C,Electronics,BLE-MOD,Bluetooth LE module 2.4GHz,1,EA,Y,buyer_imposed
+BL-0054,U3-C,Electronics,WIFI-MOD,WiFi module 2.4GHz dual-band,1,EA,Y,buyer_imposed
+BL-0055,U3-C,Display,LCD-7,Touch display 7in,1,EA,N,
+BL-0056,U3-C,Power,BAT-2S,Li-ion battery pack 2S 3.4Ah,2,EA,Y,standard
+BL-0057,U3-C,Housing,ENC-U3,Enclosure housing ultrasound U3,1,EA,N,
+BL-0058,U3-C,Housing,GSK-CLR,Silicone gasket seal clear,2,EA,N,
+BL-0059,U3-C,Hardware,FAS-M2,Screw M2x6 pan head,20,EA,N,
+BL-0060,U3-C,Hardware,FAS-M3,Screw M3x8 pan head,10,EA,N,
+BL-0061,U3-V,Sensing,TRD-US,Ultrasound transducer array 3.5MHz,1,EA,N,
+BL-0062,U3-V,Electronics,MCU-U3,Main control board ultrasound U3,1,EA,N,
+BL-0063,U3-V,Electronics,BLE-MOD,Bluetooth LE module 2.4GHz,1,EA,N,
+BL-0064,U3-V,Electronics,WIFI-MOD,WiFi module 2.4GHz dual-band,1,EA,N,
+BL-0065,U3-V,Display,LCD-7,Touch display 7in,1,EA,N,
+BL-0066,U3-V,Power,BAT-2S,Li-ion battery pack 2S 3.4Ah,2,EA,N,
+BL-0067,U3-V,Housing,ENC-U3,Enclosure housing ultrasound U3,1,EA,N,
+BL-0068,U3-V,Housing,GSK-CLR,Silicone gasket seal clear,2,EA,N,
+BL-0069,U3-V,Hardware,FAS-M2,Screw M2x6 pan head,20,EA,N,
+BL-0070,U3-V,Hardware,FAS-M3,Screw M3x8 pan head,10,EA,N,

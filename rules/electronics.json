@@ -1,0 +1,66 @@
+{
+ "industry": "Consumer and industrial electronics",
+ "pack": null,
+ "rules": [
+  {
+   "id": "reach_svhc",
+   "title": "EU REACH SVHC Candidate List (updated about twice a year)",
+   "authority": "ECHA",
+   "kind": "regulation",
+   "status": "in_force",
+   "date": "2026-02-04",
+   "date_label": "List had 253 entries after Feb 2026 update",
+   "summary": "Each addition can trigger customer-notification duties for products containing the substance above 0.1% by weight of an article.",
+   "why_it_matters": "Every BOM part needs substance data from its supplier; a new listing means re-checking parts.",
+   "source": "ECHA update summarized by Z2Data",
+   "source_url": "https://www.z2data.com/insights/echa-publishes-february-2026-reach-svhc-update-two-new-substances-added/",
+   "checked_on": "2026-11-14",
+   "confidence": "verified by search",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Keep supplier substance declarations current per part."
+  },
+  {
+   "id": "uflpa",
+   "title": "UFLPA Entity List (U.S. forced-labor import ban)",
+   "authority": "U.S. DHS",
+   "kind": "statute",
+   "status": "in_force",
+   "date": null,
+   "date_label": "In force; list updated periodically",
+   "summary": "Goods made with forced labor in Xinjiang, or by listed entities, are presumed barred from import. DHS keeps adding companies to the list.",
+   "why_it_matters": "A supplier appearing on the list blocks imports of its parts; you need tier-below visibility.",
+   "source": "DHS UFLPA Entity List (updates summarized by SiliconExpert)",
+   "source_url": "https://www.siliconexpert.com/blog/tag/regulation",
+   "checked_on": "2026-11-14",
+   "confidence": "check dates before relying",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Screen suppliers and their sub-tier sources against each update."
+  },
+  {
+   "id": "s232_semis",
+   "title": "Section 232 tariffs on semiconductors",
+   "authority": "U.S. Commerce / White House",
+   "kind": "tariff",
+   "status": "in_force",
+   "date": null,
+   "date_label": "In force (25% reported)",
+   "summary": "Semiconductor imports face Section 232 duties, per recent summaries.",
+   "why_it_matters": "Chips and modules on your BOM from abroad cost more.",
+   "source": "Covington (Apr 2026); TariffLens 2026 guide",
+   "source_url": "https://www.cov.com/en/news-and-insights/insights/2026/04/current-and-forthcoming-section-232-actions-by-the-trump-administration",
+   "checked_on": "2026-11-14",
+   "confidence": "verified in force; confirm rate",
+   "scope": {
+    "parts": []
+   },
+   "impact": "none",
+   "workaround": "Check HTS codes and country of origin per part."
+  }
+ ]
+}

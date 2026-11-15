@@ -1,4 +1,4 @@
-"""PartLink: BOM-to-spend cost intelligence (demo on synthetic drone-maker data).
+"""PartLink: BOM-to-spend cost intelligence (demo on synthetic data; industry is a configuration pack).
 
 Run:  streamlit run app.py
 """
@@ -9,8 +9,11 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-import analytics as A
-import matcher
+import uuid
+
+from core import analytics as A
+from core import evaluate, foresight, matcher, store
+from core.pack import list_packs, load_pack
 
 st.set_page_config(page_title="PartLink", page_icon="🔗", layout="wide")
 
@@ -26,18 +29,32 @@ h1, h2, h3 {{color: {INK}; letter-spacing: -0.01em;}}
 .pl-sub {{font-size:.85rem; color:{MUTED};}}
 </style>""", unsafe_allow_html=True)
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-KEY_PATH = os.path.join(os.path.dirname(__file__), "_answer_key", "answer_key.csv")
+PACKS = list_packs()
+_by_name = {p.name: p for p in PACKS}
+_qp = st.query_params.get("pack")
+_default = next((i for i, p in enumerate(PACKS) if p.id == _qp), 0)
+pick = st.sidebar.selectbox("Industry pack", [p.name for p in PACKS], index=_default,
+                            help="The engine is identical for every industry. A pack supplies the data, vocabulary and rule labels.")
+PACK = _by_name[pick]
+st.sidebar.caption(PACK.cfg["text"]["company_blurb"])
+DATA_DIR, KEY_PATH = PACK.data_dir, PACK.key_path
+BASES, BASIS_LABEL = PACK.bases, PACK.basis_label
+T, X = PACK.term, PACK.text
+
+if "sid" not in st.session_state:
+    st.session_state.sid = st.query_params.get("s") or uuid.uuid4().hex[:12]
+SID = st.session_state.sid
 
 
 @st.cache_data(show_spinner="Matching purchase lines to parts…")
-def get_matches():
-    return matcher.run_matching(DATA_DIR)
+def get_matches(pack_id):
+    p = load_pack(pack_id)
+    return matcher.run_matching(p.data_dir, lex=p.lexicon, uom=p.uom, spares_plant_prefix=p.spares_plant_prefix)
 
 
 @st.cache_data
-def get_data():
-    return A.load_data(DATA_DIR)
+def get_data(pack_id):
+    return A.load_data(load_pack(pack_id).data_dir)
 
 
 def usd(x, d=0):
@@ -49,12 +66,18 @@ def kpi(col, label, value, sub=""):
                  unsafe_allow_html=True)
 
 
-raw = get_matches()
-d = get_data()
-if "approvals" not in st.session_state:
-    st.session_state.approvals = {}
-if "ledger_status" not in st.session_state:
-    st.session_state.ledger_status = {}
+raw = get_matches(PACK.id)
+d = get_data(PACK.id)
+# decisions and ledger live in SQLite (per session and pack); session_state mirrors them for the current run
+if st.session_state.get("_loaded") != (SID, PACK.id):
+    st.session_state.approvals = store.load_decisions(SID, PACK.id)
+    st.session_state.ledger_status = store.load_ledger(SID, PACK.id)
+    st.session_state._loaded = (SID, PACK.id)
+
+
+def set_approvals(new):
+    st.session_state.approvals = new
+    store.save_decisions(SID, PACK.id, new)
 
 m = A.effective(raw, st.session_state.approvals)
 cov = A.coverage(m)
@@ -62,32 +85,32 @@ cov = A.coverage(m)
 # ------------------------------------------------------------------------ header
 st.title("PartLink")
 st.caption("Connect every purchase to the approved part it belongs to, and see what each product costs, spares included (estimate).")
-st.markdown('<div class="pl-banner"><b>Demo on synthetic data.</b> A fictional drone maker (4 products, 27 parts, 16 suppliers, '
+st.markdown(f'<div class="pl-banner"><b>Demo on synthetic data.</b> {X("company_blurb")} ({len(d["products"].family.unique())} product families, {len(d["parts_master"])} parts, {len(d["suppliers"])} suppliers, '
             f'{len(raw):,} purchase lines). Savings shown are <b>potential</b>, not realized, and nothing here is a legal '
             'compliance determination.</div>', unsafe_allow_html=True)
 st.write("")
 
-tabs = st.tabs(["Overview", "Cost per unit (est.)", "Review queue", "Savings simulator", "Savings ledger",
-                "Negotiation brief", "Match quality", "Pilot & limits"])
+TAB_NAMES = ['Overview', 'Cost per unit (est.)', 'Review queue', 'Savings simulator', 'Savings ledger', 'Negotiation brief', 'Match quality', 'Regulatory outlook', 'Pilot & limits']
+tabs = dict(zip(TAB_NAMES, st.tabs(TAB_NAMES)))
 
 # ------------------------------------------------------------------------ overview
-with tabs[0]:
+with tabs["Overview"]:
     sc_all = A.savings_scenario(m, d)
     sp = A.spares_premium(m)
     tc = A.true_cost(m, d)
     c = st.columns(4)
     kpi(c[0], "Spend mapped to a part", f"{cov['mapped_pct']:.1%}", f"{usd(cov['unresolved_spend'])} awaiting review")
     kpi(c[1], "Lines needing a human", f"{cov['unresolved_lines']}", "of {:,} purchase lines".format(len(raw)))
-    kpi(c[2], "Potential savings (net)", usd(sc_all.scenario_savings.sum()), "after compliance limits, if all volume moves")
+    kpi(c[2], "Potential savings (net)", usd(sc_all.scenario_savings.sum()), "after sourcing limits, if all volume moves")
     kpi(c[3], "Spares paid above production price", usd(sp.premium_usd.sum()), "illustrative, same part, same year")
     st.write("")
     st.subheader("What PartLink found")
-    nd = A.near_duplicates(d["parts_master"], m)
+    nd = A.near_duplicates(d["parts_master"], m, PACK.lexicon)
     naive, net = sc_all.naive_savings.sum(), sc_all.scenario_savings.sum()
     top = sc_all.iloc[0]
     st.markdown(f"""
 - **A naive "buy everything from the cheapest supplier" view promises {usd(naive)}. Respecting sourcing limits cuts it to {usd(net)}.**
-  The {usd(naive - net)} gap is the cost of keeping restricted parts with compliant suppliers. Largest single opportunity: **{top.part_id}** ({usd(top.scenario_savings)} net).
+  The {usd(naive - net)} gap is the cost of {T('restricted_note')}. Largest single opportunity: **{top.part_id}** ({usd(top.scenario_savings)} net).
 - **Spares are bought at a premium.** Fleet spares cost {usd(sp.premium_usd.sum())} more than the same parts at production prices; batteries and thermal cameras lead.
   Spares add **{tc.spares_pct_of_cost.min():.0%}–{tc.spares_pct_of_cost.max():.0%}** to each product's estimated cost per unit, a cost the production BOM never shows (allocated by part usage, an assumption).
 - **Near-duplicate parts are flagged, not assumed swappable.** {len(nd)} pair(s) found (e.g. {nd.part_a.iloc[0]} vs {nd.part_b.iloc[0]}, differing only on {nd.differs_on.iloc[0]}). Standardizing is worth {usd(nd.potential_if_standardized.sum())} only if engineering approves.
@@ -97,7 +120,7 @@ with tabs[0]:
                 'later invoices that show it (see Savings ledger).</div>', unsafe_allow_html=True)
 
 # ------------------------------------------------------------------------ true cost
-with tabs[1]:
+with tabs["Cost per unit (est.)"]:
     st.subheader("Procurement-attributable cost per unit (estimate)")
     st.caption("Material cost = BOM quantity × average price actually paid. Spares = spares spend allocated by part usage, per unit sold.")
     fam = A.family_cost(m, d).drop_duplicates("family")
@@ -127,9 +150,9 @@ with tabs[1]:
         {"Avg paid $": "${:,.2f}", "Line cost $": "${:,.2f}"}), hide_index=True, width='stretch')
 
 # ------------------------------------------------------------------------ review queue
-with tabs[2]:
+with tabs["Review queue"]:
     st.subheader("Review queue")
-    st.caption("PartLink never auto-accepts a doubtful match, and the best guess is often wrong (cartons look like propellers). A human decides: pick a part, or 'NONE' if it is not a tracked part. Decisions update every number in the app. The demo button simulates an expert reviewer using the hidden answer key.")
+    st.caption(f"PartLink never auto-accepts a doubtful match, and the best guess is often wrong ({X("review_example")}). A human decides: pick a part, or 'NONE' if it is not a tracked part. Decisions update every number in the app. The demo button simulates an expert reviewer using the hidden answer key.")
     rq = raw[raw.status == "review"].sort_values("extended_spend", ascending=False).copy()
     options = ["Pending"] + sorted(d["parts_master"].part_id.tolist()) + ["NONE (not a tracked part)"]
     rq["Decision"] = rq.spend_id.map(lambda s: st.session_state.approvals.get(s, "Pending"))
@@ -140,11 +163,10 @@ with tabs[2]:
     c1, c2, c3 = st.columns([1, 1, 3])
     if c1.button("Demo: simulate expert reviewer") and os.path.exists(KEY_PATH):
         _k = pd.read_csv(KEY_PATH).set_index("spend_id").true_part_id
-        for r in rq.itertuples():
-            st.session_state.approvals[r.spend_id] = _k[r.spend_id]
+        set_approvals({**st.session_state.approvals, **{r.spend_id: _k[r.spend_id] for r in rq.itertuples()}})
         st.rerun()
     if c2.button("Clear decisions"):
-        st.session_state.approvals = {}
+        set_approvals({})
         st.rerun()
     edited = st.data_editor(view, hide_index=True, width='stretch', key="rq_editor",
                             disabled=[c for c in view.columns if c != "Decision"],
@@ -153,7 +175,7 @@ with tabs[2]:
                                            "Confidence": st.column_config.ProgressColumn(min_value=0, max_value=1, format="%.2f")})
     new = {r.Line: ("NONE" if r.Decision.startswith("NONE") else r.Decision) for r in edited.itertuples() if r.Decision != "Pending"}
     if new != st.session_state.approvals:
-        st.session_state.approvals = new
+        set_approvals(new)
         st.rerun()
     st.info(f"{len(st.session_state.approvals)} of {len(rq)} decided · mapped spend now {cov['mapped_pct']:.1%}")
 
@@ -182,22 +204,20 @@ with tabs[2]:
         st.info("This line is not currently linked to a tracked part, so it adds nothing to any product cost.")
 
 # ------------------------------------------------------------------------ simulator
-with tabs[3]:
+with tabs["Savings simulator"]:
     st.subheader("What-if savings simulator")
     st.caption("Choose which sourcing requirements bind, and how much volume you can realistically move.")
     left, right = st.columns([1, 2])
     with left:
-        enforce = st.multiselect("Requirements treated as binding for government-variant volume", A.BASES,
-                                 default=A.BASES, format_func=lambda b: A.BASIS_LABEL[b])
+        enforce = st.multiselect(T("binding_label"), BASES,
+                                 default=BASES, format_func=lambda b: BASIS_LABEL[b])
         share = st.slider("Share of volume you can move", 0, 100, 100, 5, format="%d%%") / 100
-        st.markdown('<div class="pl-sub">Statutory means a named component category in the FY2020 NDAA §848. Blue UAS Framework (managed by DCMA) is a vetting '
-                    'program, not a statute; the FCC exemption for Blue UAS items runs to 1 Jan 2027 unless extended. Rules also reach any federally funded buyer (American Security Drone Act), not only DoD. Buyer-imposed comes from the customer contract. All are screening inputs, '
-                    'not legal conclusions. Rules last checked 2026-11-01 (demo).</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="pl-sub">{X("rules_note")}</div>', unsafe_allow_html=True)
     sc = A.savings_scenario(m, d, enforce=enforce, share_movable=share)
     with right:
         k = st.columns(3)
         kpi(k[0], "Naive view", usd(sc.naive_savings.sum()), "all volume to cheapest supplier")
-        kpi(k[1], "Compliance cost", usd(sc.compliance_cost.sum()), "forced moves for restricted parts")
+        kpi(k[1], T("rule_cost"), usd(sc.compliance_cost.sum()), T("rule_cost_sub"))
         kpi(k[2], "Net potential savings", usd(sc.scenario_savings.sum()), f"at {share:.0%} of volume movable")
     bar = sc.head(10).melt(id_vars="part_id", value_vars=["naive_savings", "scenario_savings"], var_name="view", value_name="usd")
     bar["view"] = bar.view.map({"naive_savings": "Naive", "scenario_savings": "Net of sourcing limits"})
@@ -209,12 +229,12 @@ with tabs[3]:
     st.dataframe(sc[["part_id", "requirement_basis", "avg_paid", "best_any_supplier", "best_compliant", "naive_savings",
                      "compliance_cost", "scenario_savings"]].rename(columns={
         "part_id": "Part", "requirement_basis": "Basis", "avg_paid": "Avg paid", "best_any_supplier": "Best price (any)",
-        "best_compliant": "Best compliant", "naive_savings": "Naive $", "compliance_cost": "Compliance cost $",
+        "best_compliant": "Best qualified", "naive_savings": "Naive $", "compliance_cost": T("rule_cost") + " $",
         "scenario_savings": "Net $"}).style.format({"Avg paid": "${:,.2f}", "Best price (any)": "${:,.2f}", "Best compliant": "${:,.2f}",
-                                                    "Naive $": "${:,.0f}", "Compliance cost $": "${:,.0f}", "Net $": "${:,.0f}"}),
+                                                    "Naive $": "${:,.0f}", T("rule_cost") + " $": "${:,.0f}", "Net $": "${:,.0f}"}),
         hide_index=True, width='stretch')
     st.markdown("##### Near-duplicate parts: needs engineering review")
-    nd = A.near_duplicates(d["parts_master"], m)
+    nd = A.near_duplicates(d["parts_master"], m, PACK.lexicon)
     st.dataframe(nd.style.format({"price_gap_each": "${:,.2f}", "qty_at_higher_price": "{:,.0f}", "potential_if_standardized": "${:,.0f}"}),
                  hide_index=True, width='stretch')
     st.markdown("##### Spares priced above production (illustrative)")
@@ -224,15 +244,15 @@ with tabs[3]:
         "premium_pct": "Premium", "premium_usd": "Premium $"}).style.format({
         "Spares qty": "{:,.0f}", "Spares price": "${:,.2f}", "Production price": "${:,.2f}", "Premium": "{:.0%}", "Premium $": "${:,.0f}"}),
         hide_index=True, width='stretch')
-    st.caption("Spares often cost more for good reasons (small lots, fast delivery). No typical drone-spares markup is published, so treat this as a prompt to ask, not a verdict.")
+    st.caption(X("spares_note"))
 
 # ------------------------------------------------------------------------ ledger
-with tabs[4]:
+with tabs["Savings ledger"]:
     st.subheader("Savings ledger: from identified to realized")
     st.caption("A price spread is not cash saved. Each opportunity must pass engineering, procurement and finance. "
                "'Realized' should only be set when later invoices show the lower price.")
     sc0 = A.savings_scenario(m, d)
-    nd = A.near_duplicates(d["parts_master"], m)
+    nd = A.near_duplicates(d["parts_master"], m, PACK.lexicon)
     sp0 = A.spares_premium(m)
     items = [{"Opportunity": f"Move {r.part_id} volume to lower-priced eligible supplier", "Type": "Price spread",
               "Identified $": r.scenario_savings, "Needs": "Supplier qualification + sourcing-rule check + negotiation"}
@@ -248,14 +268,17 @@ with tabs[4]:
                         disabled=["Opportunity", "Type", "Identified $", "Needs"],
                         column_config={"Status": st.column_config.SelectboxColumn(options=stages, required=True),
                                        "Identified $": st.column_config.NumberColumn(format="$%.0f")})
-    st.session_state.ledger_status = dict(zip(ed.Opportunity, ed.Status))
+    _new_led = dict(zip(ed.Opportunity, ed.Status))
+    if _new_led != st.session_state.ledger_status:
+        st.session_state.ledger_status = _new_led
+        store.save_ledger(SID, PACK.id, _new_led)
     tot = ed.groupby("Status")["Identified $"].sum().reindex(stages).fillna(0)
     cc = st.columns(4)
     for col, s in zip(cc, stages):
         kpi(col, s, usd(tot[s]), f"{int((ed.Status == s).sum())} item(s)")
 
 # ------------------------------------------------------------------------ negotiation brief
-with tabs[5]:
+with tabs["Negotiation brief"]:
     st.subheader("Negotiation brief")
     sup = d["suppliers"]
     sid = st.selectbox("Supplier", sup.supplier_id.tolist(),
@@ -266,11 +289,10 @@ with tabs[5]:
     st.text_area("Brief (copy into an email or deck)", brief, height=380)
 
 # ------------------------------------------------------------------------ match quality
-with tabs[6]:
+with tabs["Match quality"]:
     st.subheader("How good is the matching?")
     st.caption("Graded against a hidden answer key that exists only because this data is synthetic. Real data would need a labeled sample.")
     if os.path.exists(KEY_PATH):
-        import evaluate
         res = evaluate.grade(raw, pd.read_csv(KEY_PATH))
         k = st.columns(4)
         kpi(k[0], "Auto-accept precision", f"{res['auto_accept_precision']:.1%}", f"{res['auto_accepted_wrong_lines']} wrong auto-accepts")
@@ -284,10 +306,10 @@ with tabs[6]:
         kpi(k2[2], "Unresolved exposure $", usd(res['review_spend']), f"{res['review_lines']} lines awaiting a human")
         kpi(k2[3], "Review share of lines", f"{res['review_share_of_all_lines']:.1%}", "analyst workload")
         st.write("")
+        notes = "\n".join("- " + n.replace("{auto_share}", f"{res['auto_accept_share_of_part_lines']:.1%}") for n in X("match_notes") if True) if isinstance(X("match_notes"), list) else ""
         st.markdown(f"""
 **Reading these honestly**
-- **Text alone** auto-accepts about 77% of part lines with zero wrong; **supplier-SKU history** (a SKU confirmed once vouches for its other lines) lifts that to {res['auto_accept_share_of_part_lines']:.1%}.
-- On **54 fresh descriptions written after tuning** (text only), 42 were auto-accepted with none wrong, and the other 12 went to review with the right guess on top. Small sample.
+{notes}
 - **Not-a-part lines** (cartons, gloves, tape): {res['non_part_wrongly_auto_accepted']} wrongly auto-accepted; {res['non_part_correctly_unmatched']:.0%} left cleanly unmatched, the rest in review.
 - This data is cleaner than real ERP exports and the abbreviations list was written by the same team that wrote the data, so **real-world accuracy will be lower**. That is why the review queue and a labeled pilot sample exist.
 - Auto-accept never means engineering-approved: **identity is not interchangeability**.
@@ -298,8 +320,75 @@ with tabs[6]:
         st.info("Answer key not found. Place it in _answer_key/ to see grading.")
 
 
+# ------------------------------------------------------------------------ regulatory outlook
+with tabs["Regulatory outlook"]:
+    LIBS = foresight.load_libraries()
+    lib = LIBS.get(PACK.id, {"industry": PACK.name, "rules": []})
+    rules = lib["rules"]
+    st.subheader("Regulatory outlook")
+    st.caption("Dated rule changes for this industry, joined to your BOM and spend. Rules are entered by hand with a source and review date; PartLink does not scrape regulators or decide what is legal. Not legal advice.")
+    st.markdown('<div class="pl-warn">Dollar figures are <b>exposure</b>: spend that a rule would touch today, not a forecast of what it will cost. Tariff costs use one assumed rate for all affected spend, because this demo holds no HTS codes.</div>', unsafe_allow_html=True)
+    st.write("")
+    mm = A.effective(raw, st.session_state.approvals)
+    rows = []
+    for r in rules:
+        ex = foresight.exposure(r, mm, d)
+        dd = foresight.days_until(r)
+        rows.append({"Rule": r["title"], "Status": foresight.STATUS_LABEL[r["status"]], "Date": r["date_label"],
+                     "Days": (dd if (dd is not None and r["status"] == "scheduled") else None),
+                     "Parts touched": len(ex), "Exposed spend": float(ex.exposed_spend.sum()) if len(ex) else 0.0, "_id": r["id"], "_ex": ex})
+    sched = sorted([x for x in rows if x["Days"] is not None and x["Days"] >= 0], key=lambda x: x["Days"])
+    k = st.columns(3)
+    kpi(k[0], "Rules tracked", str(len(rules)), f"{sum(1 for r in rules if r['status']=='in_force')} in force, {sum(1 for r in rules if r['status']=='scheduled')} scheduled, {sum(1 for r in rules if r['status']=='pending')} pending")
+    if sched:
+        kpi(k[1], "Next dated change", f"{sched[0]['Days']} days", sched[0]["Rule"][:70])
+        kpi(k[2], "Spend it would touch", usd(sched[0]["Exposed spend"]), "production spend with affected suppliers")
+    st.write("")
+    tbl = pd.DataFrame([{k_: v for k_, v in x.items() if not k_.startswith("_")} for x in rows])
+    st.dataframe(tbl.style.format({"Exposed spend": "${:,.0f}", "Days": "{:,.0f}"}, na_rep="-"), hide_index=True, width='stretch')
+    if rules:
+        pick_r = st.selectbox("Open a rule", [r["id"] for r in rules], format_func=lambda i: next(r["title"] for r in rules if r["id"] == i))
+        r = next(r for r in rules if r["id"] == pick_r)
+        ex = next(x["_ex"] for x in rows if x["_id"] == pick_r)
+        st.markdown(f"**{r['title']}**  \n{foresight.STATUS_LABEL[r['status']]} · {r['date_label']} · {r['authority']}")
+        st.markdown(f"{r['summary']}")
+        st.markdown(f"**Why it matters for the BOM.** {r['why_it_matters']}")
+        st.markdown(f"**Workaround to explore.** {r['workaround']}")
+        src = f"[{r['source']}]({r['source_url']})" if r.get("source_url") else r["source"]
+        st.caption(f"Source: {src} · reviewed {r['checked_on']} · confidence: {r['confidence']}")
+        if r["impact"] == "none" or ex.empty:
+            st.info("No parts in this pack are touched by this rule, or it is watch-only." if r["impact"] != "none" else "Watch-only: no BOM exposure is calculated for this rule.")
+        elif r["impact"] == "tariff":
+            rate = st.slider("Assumed duty rate (scenario, not a forecast)", 0, 100, 25, 5, format="%d%%") / 100
+            ex = ex.assign(added_duty=ex.exposed_spend * rate)
+            c = st.columns(2)
+            kpi(c[0], "Spend with affected suppliers", usd(ex.exposed_spend.sum()), "production spend, non-U.S. suppliers")
+            kpi(c[1], "Added duty at this rate", usd(ex.added_duty.sum()), "if all of it stayed put")
+            st.dataframe(ex[["part_id", "exposed_suppliers", "exposed_spend", "added_duty", "alt_supplier", "alt_price", "avg_paid"]].rename(columns={
+                "part_id": "Part", "exposed_suppliers": "Affected suppliers", "exposed_spend": "Spend $", "added_duty": "Added duty $",
+                "alt_supplier": "Unaffected alternative on file", "alt_price": "Alt price", "avg_paid": "Avg paid"}).style.format({
+                "Spend $": "${:,.0f}", "Added duty $": "${:,.0f}", "Alt price": "${:,.2f}", "Avg paid": "${:,.2f}"}, na_rep="-"), hide_index=True, width='stretch')
+        else:
+            c = st.columns(2)
+            kpi(c[0], "Spend with affected suppliers", usd(ex.exposed_spend.sum()), f"{len(ex)} part(s)")
+            if r["impact"] == "switch":
+                kpi(c[1], "Est. cost to switch to alternates on file", usd(ex.switch_cost.sum(skipna=True)), "alternate avg price vs today's, same volume")
+            st.dataframe(ex[["part_id", "exposed_suppliers", "exposed_spend", "avg_paid", "alt_supplier", "alt_price", "switch_cost"]].rename(columns={
+                "part_id": "Part", "exposed_suppliers": "Affected suppliers", "exposed_spend": "Spend $", "avg_paid": "Avg paid",
+                "alt_supplier": "Alternative on file", "alt_price": "Alt price", "switch_cost": "Switch cost $"}).style.format({
+                "Spend $": "${:,.0f}", "Avg paid": "${:,.2f}", "Alt price": "${:,.2f}", "Switch cost $": "${:,.0f}"}, na_rep="-"), hide_index=True, width='stretch')
+            if r["impact"] == "documentation":
+                st.caption("This rule adds documentation duties rather than a purchase ban, so the table shows who supplies the affected parts, not a dollar cost.")
+    with st.expander("Rule library for every industry"):
+        st.caption("Industries with a full data pack run end to end. The others show the rules only; bring a BOM and spend export in the same CSV format to get exposure.")
+        lib_pick = st.selectbox("Industry", list(LIBS), index=list(LIBS).index(PACK.id) if PACK.id in LIBS else 0,
+                                format_func=lambda k_: LIBS[k_]["industry"] + ("" if LIBS[k_].get("pack") else "  (rules only)"))
+        for r in LIBS[lib_pick]["rules"]:
+            link = f" · [source]({r['source_url']})" if r.get("source_url") else f" · {r['source']}"
+            st.markdown(f"- **{r['title']}** ({foresight.STATUS_LABEL[r['status']]}, {r['date_label']}). {r['summary']}{link}")
+
 # ------------------------------------------------------------------------ pilot & limits
-with tabs[7]:
+with tabs["Pilot & limits"]:
     st.subheader("What we claim, what we don't, and how a real pilot would prove it")
     l, r = st.columns(2)
     with l:
@@ -311,17 +400,17 @@ with tabs[7]:
 - Sourcing rules kept as **evidence with a source and date**, not a "compliant" badge.
 """)
         st.markdown("##### What PartLink does not claim")
-        st.markdown("""
+        st.markdown(f"""
 - **Not actual unit cost.** It uses the approved BOM, not as-built records, and allocates spares by part usage (an assumption).
-- **Not a legal compliance determination.** Rules change (e.g. the FCC Blue UAS exemption runs to 1 Jan 2027 unless extended).
+- **Not a legal compliance determination.** {X('rules_change_example')}
 - **Not proven on real data.** The demo data is synthetic and cleaner than real ERP exports.
 - **Not a replacement for engineering approval.** A matched part is not an approved substitute.
 - **Not unique at BOM-to-spend.** Platforms like Sievo, GEP, JAGGAER and Coupa document BOM and spend capabilities; the test is the last, auditable mile, with less buyer effort.
 """)
     with r:
         st.markdown("##### Proposed pilot (8 weeks, read-only)")
-        st.markdown("""
-**Scope:** one consenting U.S. drone maker, one product family, 2 to 3 BOM revisions, purchased assemblies and recurring spares. Buyer: procurement or supply-chain lead. Engineering and finance sign off jointly.
+        st.markdown(f"""
+**Scope:** {X('pilot_scope')}. Buyer: procurement or supply-chain lead. Engineering and finance sign off jointly.
 
 **Data (read-only, fields needed only):** effective-dated approved BOMs, supplier and manufacturer part crosswalks, approved alternates, PO and invoice lines with paid prices, units and currency, credits and returns, supplier master, spares identifiers, agreed savings baseline.
 
